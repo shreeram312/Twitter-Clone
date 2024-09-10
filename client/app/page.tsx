@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { CgMoreO } from "react-icons/cg";
 import { RiEditBoxLine } from "react-icons/ri";
 import { PiBookmarkSimpleLight } from "react-icons/pi";
+import FeedCard from "@/components/FeedCard/index";
 
 export default function Home() {
   interface TwitterSidebarButton {
@@ -97,6 +98,7 @@ export default function Home() {
         </div>
         <div className="col-span-6 mx-4  border-r-[0.2px] border-l-[0.2px] border-l-slate-600 border-r-slate-600">
           hiii
+          <FeedCard />
         </div>
         <div className="col-span-3">jfdn</div>
       </div>
