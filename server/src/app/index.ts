@@ -1,6 +1,7 @@
 import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { User } from "./users";
 
 export async function initServer() {
   const app = express();
@@ -9,18 +10,19 @@ export async function initServer() {
 
   const graphqlServer = new ApolloServer({
     typeDefs: `
+    ${User.types}
     type Query{
-    sayHello :String,
-    addintV:
+    ${User.queries}
     }
     `,
     resolvers: {
       Query: {
-        sayHello: () => `Hello  from graphql server`,
-        addintV: () => 10,
+        ...User.resolvers.queries,
       },
     },
   });
+
+  console.log(User);
 
   await graphqlServer.start();
 
