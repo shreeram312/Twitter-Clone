@@ -9,6 +9,8 @@ import { CgProfile, CgMoreO } from "react-icons/cg";
 import { RiEditBoxLine } from "react-icons/ri";
 import { PiBookmarkSimpleLight } from "react-icons/pi";
 import FeedCard from "@/components/FeedCard/index";
+import { GoogleLogin } from "@react-oauth/google";
+import GoogleLoginClient from "@/components/GoogleLoginClient";
 
 export default function Home() {
   interface TwitterSidebarButton {
@@ -60,7 +62,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Feed Section */}
         <div className="col-span-10 md:col-span-7 mx-4 md:mx-10 border-r-[0.2px] border-l-[0.2px] border-l-slate-700 overflow-y-scroll no-scrollbar border-r-slate-700">
           <FeedCard />
           <FeedCard />
@@ -71,8 +72,12 @@ export default function Home() {
           <FeedCard />
         </div>
 
-        {/* Right Sidebar (optional) */}
-        <div className="hidden md:block col-span-3">Right Sidebar Content</div>
+        <div className="hidden md:block col-span-3 p-5">
+          <div className="p-5  bg-slate-700 rounded-lg">
+            <h1>New to Twitter...?</h1>
+            <GoogleLoginClient />
+          </div>
+        </div>
       </div>
     </div>
   );
