@@ -72,8 +72,8 @@ export default function Home() {
           <FeedCard />
         </div>
 
-        <div className="hidden md:block col-span-3 p-5">
-          <div className="p-5  bg-slate-700 rounded-lg">
+        <div className="hidden md:block col-span-3  w-96 p-5">
+          <div className="p-5 bg-slate-700 rounded-lg ">
             <h1>New to Twitter...?</h1>
             <GoogleLoginClient />
           </div>

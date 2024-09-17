@@ -7,7 +7,7 @@ const GoogleLoginClient = () => {
   const handleLoginWithGoogle = useCallback((cred: CredentialResponse) => {},
   []);
   return (
-    <div>
+    <div className="">
       <GoogleLogin onSuccess={(cred) => console.log(cred)} />
     </div>
   );
