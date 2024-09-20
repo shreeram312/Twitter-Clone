@@ -1,6 +1,6 @@
 import { FaTwitter } from "react-icons/fa";
 import React from "react";
-import { BiHomeAlt } from "react-icons/bi";
+import { BiHomeAlt, BiLogOut } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -8,10 +8,10 @@ import { IoPeopleSharp } from "react-icons/io5";
 import { CgProfile, CgMoreO } from "react-icons/cg";
 import { RiEditBoxLine } from "react-icons/ri";
 import { PiBookmarkSimpleLight } from "react-icons/pi";
-import FeedCard from "@/components/FeedCard/index";
+import FeedCard from "@/components/FeedCard/MainSection";
 import { GoogleLogin } from "@react-oauth/google";
-import GoogleLoginClient from "@/components/GoogleLoginClient";
-
+import SideBarItem from "@/components/FeedCard/SideBarItem";
+import { GrLogout } from "react-icons/gr";
 export default function Home() {
   interface TwitterSidebarButton {
     title: string;
@@ -19,15 +19,19 @@ export default function Home() {
   }
 
   const SidebarMenuItems = [
-    { title: "Home", icon: <BiHomeAlt /> },
-    { title: "Explore", icon: <BsSearch /> },
-    { title: "Notifications", icon: <IoNotificationsOutline /> },
-    { title: "Messages", icon: <MdOutlineMailOutline /> },
-    { title: "Grok", icon: <RiEditBoxLine /> },
-    { title: "BookMarks", icon: <PiBookmarkSimpleLight /> },
-    { title: "Communities", icon: <IoPeopleSharp /> },
-    { title: "Profile", icon: <CgProfile /> },
-    { title: "More", icon: <CgMoreO /> },
+    { title: "Home", icon: <BiHomeAlt />, href: "/" },
+    { title: "Explore", icon: <BsSearch />, href: "/explore" },
+    {
+      title: "Notifications",
+      icon: <IoNotificationsOutline />,
+      href: "/notifications",
+    },
+    { title: "Messages", icon: <MdOutlineMailOutline />, href: "/messages" },
+    { title: "Grok", icon: <RiEditBoxLine />, href: "/grok" },
+    { title: "BookMarks", icon: <PiBookmarkSimpleLight />, href: "/bookmarks" },
+    { title: "Communities", icon: <IoPeopleSharp />, href: "/communities" },
+    { title: "Profile", icon: <CgProfile />, href: "/profile/123" },
+    { title: "More", icon: <CgMoreO />, href: "/more" },
   ];
 
   return (
@@ -40,19 +44,21 @@ export default function Home() {
           </div>
           <div className="my-2 ">
             {SidebarMenuItems.map((item) => (
-              <div
+              <SideBarItem
                 key={item.title}
-                className="hover:bg-gray-800 w-fit px-1 hover:rounded-full hover:cursor-pointer"
-              >
-                <li className="flex justify-start items-center gap-4 my-4 py-1">
-                  <span className="text-2xl">{item.icon}</span>
-                  {/* Hide text on small screens */}
-                  <span className="hidden md:block text-xl font-bold">
-                    {item.title}
-                  </span>
-                </li>
-              </div>
+                title={item.title}
+                icon={item.icon}
+                href={item.href}
+              />
             ))}
+
+            <SideBarItem
+              key={"Logout"}
+              title={"Logout"}
+              icon={<GrLogout />}
+              href={"/logout"}
+            />
+
             <button
               style={{ backgroundColor: "rgb(29 155 240)" }}
               className="p-3 -mx-3 rounded-full w-full md:w-48"
@@ -75,7 +81,6 @@ export default function Home() {
         <div className="hidden md:block col-span-3  w-96 p-5">
           <div className="p-5 bg-slate-700 rounded-lg ">
             <h1>New to Twitter...?</h1>
-            <GoogleLoginClient />
           </div>
         </div>
       </div>
