@@ -8,6 +8,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import FeedCard from "./FeedCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { Input } from "postcss";
 
 interface MainSectionProps {
   label: string;
@@ -33,10 +34,10 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
 
         <h1 className=" text-xl my-2">{label}</h1>
       </div>
-
+      {/* 
       <div className="border border-r-0 border-l-0 border-gray-700 p-3 hover:bg-slate-900 transition-all cursor-pointer">
         <FeedCard />
-      </div>
+      </div> */}
     </div>
   );
 };

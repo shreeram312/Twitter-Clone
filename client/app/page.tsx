@@ -13,6 +13,7 @@ import SideBarItem from "@/components/SideBarItem";
 import { GrLogout } from "react-icons/gr";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import FollowBar from "@/components/FollowBar";
+import Button from "@/components/Button";
 export default function Home() {
   interface TwitterSidebarButton {
     title: string;
