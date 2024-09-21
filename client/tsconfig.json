@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/FeedCard/index.tss"
+    "components/Cards/index.tss"
   ],
   "exclude": ["node_modules"]
 }
