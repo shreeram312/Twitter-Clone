@@ -5,7 +5,7 @@ const SidebarTweetButton = () => {
     <div>
       <button
         style={{ backgroundColor: "rgb(29 155 240)" }}
-        className="p-3 -mx-3 rounded-full w-full md:w-48"
+        className="p-3 -mx-3 rounded-full w-full md:w-48 "
       >
         Tweet
       </button>

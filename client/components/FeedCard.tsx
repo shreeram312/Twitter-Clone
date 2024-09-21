@@ -20,7 +20,7 @@ const FeedCard = ({}) => {
 
       {/* Post Content */}
       <div className="col-span-10 sm:col-span-11 mx-2">
-        <h5 className="font-bold">Shreeram Mutukundu</h5>
+        <h5 className="font-bold text-cyan-200 text-sm ">Shreeram Mutukundu</h5>
         <p className="text-sm sm:text-base">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
           Necessitatibus, neque corporis? Voluptatibus minima ullam sed, odit

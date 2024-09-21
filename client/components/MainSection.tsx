@@ -27,7 +27,7 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
             onClick={handleback}
             color="white"
             className="px-2 cursor-pointer hover:opacity-70"
-            size={40} // Keep the size as 40
+            size={40}
           />
         )}
 

@@ -42,7 +42,7 @@ export default function Home() {
         <div className="hover:bg-gray-800 hover:rounded-full h-fit w-fit p-1 cursor-pointer transition-all">
           <FaTwitter size={40} />
         </div>
-        <div className="my-2 ">
+        <div>
           {SidebarMenuItems.map((item) => (
             <SideBarItem
               key={item.title}
