@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback } from "react";
 import Button from "./Button";
-
+import { IoCloseOutline } from "react-icons/io5";
 interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({
             <div className="flex items-center justify-between p-4 border-b border-gray-600">
               <h3 className="text-2xl font-semibold text-white">{title}</h3>
               <button onClick={handleClose} className="text-white">
-                Close
+                <IoCloseOutline size={20} />
               </button>
             </div>
 

@@ -23,7 +23,9 @@ const SideBarItem: React.FC<SideBarItemProps> = ({
           <span className="text-2xl">{icon}</span>
 
           {/* Hide text on small screens */}
-          <span className="hidden md:block text-xl font-bold">{title}</span>
+          <span className="hidden  md:block text-sm  sm:text-lg  font-bold">
+            {title}
+          </span>
         </li>
       </div>
     </div>

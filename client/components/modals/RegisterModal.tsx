@@ -6,24 +6,28 @@ import React, { useCallback, useState } from "react";
 import Modal from "../Modal";
 import useRegisterModal from "@/hooks/RegisterModal";
 
-const LoginModal = () => {
+const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registermodal = useRegisterModal();
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [name, setname] = useState("");
+  const [username, setusername] = useState("");
   const [loading, setloading] = useState(false);
 
   const onToggle = useCallback(() => {
-    loginModal.onClose();
-    registermodal.onOpen();
+    registermodal.onClose();
+    loginModal.onOpen();
   }, []);
+
   const onSubmit = useCallback(async () => {
     try {
       setloading(true);
 
-      //todo add login
+      //todo add register abd login
 
-      loginModal.onClose();
+      registermodal.onClose();
     } catch (e) {
       console.log(e);
     } finally {
@@ -41,6 +45,23 @@ const LoginModal = () => {
         value={email}
         disabled={loading}
       />
+      <Input
+        placeholder="name"
+        onChange={(e) => {
+          setname(e.target.value);
+        }}
+        value={name}
+        disabled={loading}
+      />
+
+      <Input
+        placeholder="Username"
+        onChange={(e) => {
+          setusername(e.target.value);
+        }}
+        value={username}
+        disabled={loading}
+      />
 
       <Input
         placeholder="Password "
@@ -56,12 +77,12 @@ const LoginModal = () => {
   const footercontent = (
     <div className="text-neutral-400 text-center ">
       <p>
-        Don't have an account.?
+        Already Have an account
         <span
           onClick={onToggle}
           className="text-white cursor-pointer hover:underline mx-2"
         >
-          Register
+          Signin
         </span>
       </p>
     </div>
@@ -69,12 +90,12 @@ const LoginModal = () => {
   return (
     <div>
       <Modal
-        isOpen={loginModal.isOpen}
+        isOpen={registermodal.isOpen}
         body={bodyCount}
         disabled={loading}
-        title="Login"
-        actionLabel="Signin"
-        onClose={loginModal.onClose}
+        title="Create an account"
+        actionLabel="Register"
+        onClose={registermodal.onClose}
         onSubmit={onSubmit}
         footer={footercontent}
       />
@@ -82,4 +103,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;
