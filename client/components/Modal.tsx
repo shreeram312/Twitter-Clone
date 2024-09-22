@@ -44,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <div className="justify-center items-center flex fixed inset-0 z-50 overflow-x-hidden overflow-y-auto bg-neutral-800 bg-opacity-70 outline-none focus:outline-none">
-        <div className="relative w-full max-w-[70%] lg:max-w-[30%] my-6 mx-auto max-h-[80vh] overflow-auto">
+        <div className="relative w-full max-w-[80%] lg:max-w-[30%] my-6 mx-auto max-h-[90vh] overflow-auto">
           {/* Modal Content */}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-black outline-none focus:outline-none">
             {/* Modal Header */}

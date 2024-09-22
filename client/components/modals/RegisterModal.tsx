@@ -19,7 +19,7 @@ const RegisterModal = () => {
   const onToggle = useCallback(() => {
     registermodal.onClose();
     loginModal.onOpen();
-  }, []);
+  }, [registermodal, loginModal]);
 
   const onSubmit = useCallback(async () => {
     try {

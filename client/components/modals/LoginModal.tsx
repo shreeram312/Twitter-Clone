@@ -16,7 +16,7 @@ const LoginModal = () => {
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registermodal.onOpen();
-  }, []);
+  }, [loginModal, registermodal]);
   const onSubmit = useCallback(async () => {
     try {
       setloading(true);
