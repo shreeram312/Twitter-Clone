@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Modal from "@/components/Modal";
-import LoginModal from "@/components/modals/LoginModal";
-import RegisterModal from "@/components/modals/RegisterModal";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
+import { Toaster } from "react-hot-toast";
+
+// Fonts setup
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
   weight: "100 900",
 });
 
@@ -29,18 +31,30 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${quicksand.variable} ${quicksand.variable} antialiased`}
-      >
-        <RegisterModal />
-        <LoginModal />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${quicksand.variable}`}>
+          {/* Flex container for alignment */}
+          <div className="flex justify-end ">
+            {/* SignedIn and SignedOut buttons on the right */}
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
+
+          {/* Main content */}
+          <main>{children}</main>
+
+          <Toaster />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
