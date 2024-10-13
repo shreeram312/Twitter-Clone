@@ -7,7 +7,7 @@ import { auth } from "@clerk/nextjs/server";
 const page = () => {
   const { userId } = auth();
   if (!userId) return <Intro />;
-  redirect("/userdetails");
+  redirect("/home");
 };
 
 export default page;

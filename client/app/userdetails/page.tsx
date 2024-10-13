@@ -1,108 +1,120 @@
 "use client";
 
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+import { useUser } from "@clerk/nextjs";
+
 const ProfileDetails = () => {
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
+
+  const router = useRouter();
+  const { user } = useUser();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (user?.emailAddresses[0]?.emailAddress !== email) {
+        console.error("Email does not match the authenticated user's email");
+        alert("Email does not match the authenticated user's email");
+        return;
+      }
+
+      const res = await axios.post("/api/user", {
+        name,
+        userName,
+        bio,
+        email,
+        userAuthId: user?.id,
+        profileImage: user?.imageUrl,
+      });
+
+      console.log(res);
+      router.push("/home");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold text-center mb-6">
-          Complete Your Profile
-        </h1>
-        <form>
-          {/* Name Field */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700 mb-1"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter your name"
-              required
-              className="border border-gray-300 rounded-md p-2 w-full"
-            />
-          </div>
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+      <div className="w-full max-w-md p-6">
+        {/* Header */}
+        <h3 className="text-4xl font-bold text-white text-center p-2">
+          Enter your Details
+        </h3>
 
-          {/* Username Field */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700 mb-1"
-              htmlFor="userName"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="userName"
-              name="userName"
-              placeholder="Enter your username"
-              required
-              className="border border-gray-300 rounded-md p-2 w-full"
-            />
-          </div>
+        {/* Profile Form */}
+        <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+          <form onSubmit={handleSubmit}>
+            {/* Name Field */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md p-3"
+              />
+            </div>
 
-          {/* Bio Field */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700 mb-1"
-              htmlFor="bio"
-            >
-              Bio
-            </label>
-            <textarea
-              id="bio"
-              name="bio"
-              placeholder="Tell us about yourself"
-              className="border border-gray-300 rounded-md p-2 w-full h-24"
-            />
-          </div>
+            {/* Username Field */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Username
+              </label>
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Enter your username"
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md p-3"
+              />
+            </div>
 
-          {/* Email Field */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700 mb-1"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-              className="border border-gray-300 rounded-md p-2 w-full"
-            />
-          </div>
+            {/* Bio Field */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Bio
+              </label>
+              <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Tell us about yourself"
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md p-3 h-24"
+              />
+            </div>
 
-          {/* Profile Image URL Field */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700 mb-1"
-              htmlFor="image"
-            >
-              Profile Image URL
-            </label>
-            <input
-              type="text"
-              id="image"
-              name="image"
-              placeholder="Enter profile image URL"
-              className="border border-gray-300 rounded-md p-2 w-full"
-            />
-          </div>
+            {/* Email Field */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md p-3"
+              />
+            </div>
 
-          {/* Save Profile Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600 transition"
-          >
-            Save Profile
-          </button>
-        </form>
+            {/* Save Profile Button */}
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition"
+            >
+              Save Profile
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
