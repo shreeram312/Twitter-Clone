@@ -4,30 +4,25 @@ import { BiMessageRounded, BiUpload } from "react-icons/bi";
 import { FaRetweet } from "react-icons/fa";
 import Image from "next/image";
 
-const FeedCard = ({}) => {
+const FeedCard = ({ postdata }: any) => {
   return (
-    <div className="grid grid-cols-12 gap-2">
-      {/* User Image */}
+    <div className="grid grid-cols-12 border-b border-gray-700 p-2 transition duration-200 ease-in-out">
       <div className="col-span-2 sm:col-span-1">
         <Image
           className="rounded-full"
-          src="https://avatars.githubusercontent.com/u/126177107?v=4"
+          src={postdata.user.profileImage} // This could be dynamic based on user
           alt="userimage"
           width={50}
           height={50}
         />
       </div>
 
-      {/* Post Content */}
       <div className="col-span-10 sm:col-span-11 mx-2">
-        <h5 className="font-bold text-cyan-200 text-sm ">Shreeram Mutukundu</h5>
-        <p className="text-sm sm:text-base">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Necessitatibus, neque corporis? Voluptatibus minima ullam sed, odit
-          lorem100
-        </p>
-
-        {/* Action Icons */}
+        <h5 className="font-bold text-cyan-200 text-sm">
+          {postdata.user.userName}
+        </h5>
+        <p className="text-sm sm:text-base">{postdata.bodyContent}</p>
+        {/* Interaction icons */}
         <div className="flex justify-between sm:space-x-24 mt-2 w-full sm:w-[50%]">
           <div className="flex items-center space-x-2">
             <BiMessageRounded size={18} />

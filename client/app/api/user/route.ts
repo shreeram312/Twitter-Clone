@@ -1,6 +1,6 @@
-// app/api/user/route.ts
 import { NextResponse } from "next/server";
 import client from "@/libs/prismadb";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -23,6 +23,7 @@ export async function POST(req: Request) {
         profileImage,
       },
     });
+    revalidatePath("/");
     return NextResponse.json(createUser, { status: 201 });
   } catch (error) {
     console.error(error);
@@ -31,4 +32,10 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  const user = await client.user.findFirst({});
+  revalidatePath("/");
+  return NextResponse.json(user, { status: 200 });
 }
