@@ -1,10 +1,9 @@
-"use client";
 import FollowBar from "@/components/FollowBar";
-import MainSection from "@/components/MainSection";
 import ProfileSection from "@/components/ProfileSection";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { BiHomeAlt } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { CgMoreO, CgProfile } from "react-icons/cg";
@@ -14,6 +13,14 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { PiBookmarkSimpleLight } from "react-icons/pi";
 import { RiEditBoxLine } from "react-icons/ri";
 
+interface DataProps {
+  id: string;
+  bio: string;
+  name: string;
+  userName: string;
+  profilePicture: string;
+  post: [];
+}
 const Profile = () => {
   const SidebarMenuItems = [
     { title: "Home", icon: <BiHomeAlt />, href: "/" },

@@ -35,9 +35,11 @@ export async function GET() {
       include: {
         user: {
           select: {
+            id: true,
             name: true,
             userName: true,
             profileImage: true,
+            bio: true,
           },
         },
       },
