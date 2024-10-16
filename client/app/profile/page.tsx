@@ -2,7 +2,6 @@ import FollowBar from "@/components/FollowBar";
 import ProfileSection from "@/components/ProfileSection";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BiHomeAlt } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
@@ -13,14 +12,14 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { PiBookmarkSimpleLight } from "react-icons/pi";
 import { RiEditBoxLine } from "react-icons/ri";
 
-interface DataProps {
-  id: string;
-  bio: string;
-  name: string;
-  userName: string;
-  profilePicture: string;
-  post: [];
-}
+// interface DataProps {
+//   id: string;
+//   bio: string;
+//   name: string;
+//   userName: string;
+//   profilePicture: string;
+//   post: [];
+// }
 const Profile = () => {
   const SidebarMenuItems = [
     { title: "Home", icon: <BiHomeAlt />, href: "/" },
@@ -37,6 +36,7 @@ const Profile = () => {
     { title: "Profile", icon: <CgProfile />, href: "/profile/123" },
     { title: "More", icon: <CgMoreO />, href: "/more" },
   ];
+
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       {/* Sidebar */}
@@ -64,7 +64,7 @@ const Profile = () => {
       </div>
 
       {/* Main content */}
-      <div className="col-span-10 md:col-span-7 mx-4 md:mx-10 my-2 border-r-[0.2px] border-l-[0.2px] border-l-slate-700 overflow-y-scroll no-scrollbar border-r-slate-700">
+      <div className="col-span-10 md:col-span-7 mx-4 md:mx-10  border-r-[0.2px] border-l-[0.2px] border-l-slate-700 overflow-y-scroll no-scrollbar border-r-slate-700">
         <ProfileSection />
       </div>
 

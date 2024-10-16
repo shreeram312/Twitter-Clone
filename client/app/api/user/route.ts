@@ -35,7 +35,12 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  const user = await client.user.findFirst({});
+  const user = await client.user.findFirst({
+    include: {
+      posts: true,
+    },
+  });
+
   revalidatePath("/");
   return NextResponse.json(user, { status: 200 });
 }
