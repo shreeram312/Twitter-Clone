@@ -7,7 +7,7 @@ import BottomProfile from "./BottomProfile";
 import { CldUploadWidget } from "next-cloudinary";
 
 interface UserInfoState {
-  id: string;
+  id?: string;
   name?: string;
   userName?: string;
   bio?: string;
