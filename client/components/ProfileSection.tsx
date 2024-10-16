@@ -7,6 +7,7 @@ import BottomProfile from "./BottomProfile";
 import { CldUploadWidget } from "next-cloudinary";
 
 interface UserInfoState {
+  id: string;
   name?: string;
   userName?: string;
   bio?: string;
@@ -24,6 +25,17 @@ export default function ProfileSection() {
     };
     fetchRes();
   }, []);
+
+  useEffect(() => {
+    const updateCoverImage = async () => {
+      const res = await axios.patch("/api/user", {
+        coverImage: coverurl,
+        userName: UserInfo.userName,
+      });
+      console.log(res);
+    };
+    updateCoverImage();
+  }, [coverurl]);
   console.log(UserInfo);
 
   return (

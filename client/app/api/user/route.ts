@@ -44,3 +44,26 @@ export async function GET() {
   revalidatePath("/");
   return NextResponse.json(user, { status: 200 });
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json();
+    const { coverImage, userName } = body;
+    const userCoverImage = await client.user.update({
+      where: {
+        userName: userName,
+      },
+      data: {
+        coverImage,
+      },
+    });
+
+    return NextResponse.json(userCoverImage, { status: 200 });
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json(
+      { message: "Failed to update cover image" },
+      { status: 500 }
+    );
+  }
+}
