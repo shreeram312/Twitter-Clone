@@ -66,6 +66,9 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
     fetchUser();
   }, []);
 
+  console.log(userData);
+  console.log(postdata);
+
   const addPost = (newPost: any) => {
     setpostdata((prevPosts) => [...prevPosts, newPost]);
   };

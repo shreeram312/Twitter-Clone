@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiMessageRounded, BiUpload } from "react-icons/bi";
 import { FaRetweet } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const FeedCard = ({ postdata }: any) => {
+  const router = useRouter();
+
+  const handleChangeRoute = useCallback(
+    (id: any) => {
+      router.push(`/home/${id}`);
+    },
+    [router]
+  );
   return (
-    <div className="grid grid-cols-12 border-b border-gray-700 p-2 transition duration-200 ease-in-out">
+    <div
+      onClick={() => handleChangeRoute(postdata?.id)}
+      className="grid grid-cols-12 border-b border-gray-700 p-2 transition duration-200 ease-in-out"
+    >
       <div className="col-span-2 sm:col-span-1">
         <Image
           className="rounded-full"

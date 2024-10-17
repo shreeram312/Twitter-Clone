@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/Cards/index.tss"
+    "components/Cards/index.tss",
+    "app/home/[profileId]"
   ],
   "exclude": ["node_modules"]
 }
