@@ -10,6 +10,9 @@ import FeedCard from "./FeedCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import PostBox from "./PostBox";
 import axios from "axios";
+import { useAuth } from "@clerk/nextjs";
+import { CgSpinner } from "react-icons/cg";
+import Spinner from "./Spinner";
 
 interface MainSectionProps {
   label?: string;
@@ -20,25 +23,47 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
   const router = useRouter();
   const [userData, setuserData] = useState<any>(null);
   const [postdata, setpostdata] = useState<any[]>([]);
+  const { getToken } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleback = useCallback(() => {
     router.back();
   }, [router]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get("/api/user");
-      setuserData(res.data);
+    const fetchPosts = async () => {
+      const token = await getToken();
+      setLoading(true);
+      const postres = await axios.get("/api/user/post", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setpostdata(postres.data);
+      setLoading(false);
     };
-    fetchUser();
+
+    fetchPosts();
   }, []);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const postres = await axios.get("/api/user/post");
-      setpostdata(postres.data);
+    const fetchUser = async () => {
+      const token = await getToken();
+      setLoading(true);
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+      console.log(token);
+      const res = await axios.get("/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setuserData(res.data);
+      setLoading(false);
     };
-    fetchPosts();
+    fetchUser();
   }, []);
 
   const addPost = (newPost: any) => {
@@ -62,15 +87,19 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
       <PostBox
         userId={userData ? userData.id : null}
         addPost={addPost}
-        imageUrl={userData ? userData.profileImage : ""}
+        imageUrl={userData?.profileImage}
       />
 
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all cursor-pointer">
-        {postdata.map((data, index) => (
-          <div key={data.id} className="my-2">
-            <FeedCard postdata={data} />
+        {Array.isArray(postdata) && postdata.length > 0 ? (
+          postdata.map((postdata: any) => (
+            <FeedCard key={postdata.id} postdata={postdata} />
+          ))
+        ) : (
+          <div className=" flex items-center justify-center my-2 ">
+            <Spinner />
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

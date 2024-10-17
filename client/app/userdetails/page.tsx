@@ -4,7 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 const ProfileDetails = () => {
   const [name, setName] = useState("");
@@ -14,10 +15,16 @@ const ProfileDetails = () => {
 
   const router = useRouter();
   const { user } = useUser();
+  const { getToken } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const token = await getToken();
+      if (!token) {
+        return toast.error("Please login to update your profile");
+      }
+      localStorage.setItem("token", token);
       if (user?.emailAddresses[0]?.emailAddress !== email) {
         console.error("Email does not match the authenticated user's email");
         alert("Email does not match the authenticated user's email");
@@ -33,8 +40,9 @@ const ProfileDetails = () => {
         profileImage: user?.imageUrl,
       });
 
-      console.log(res);
+      toast.success("User created succesfully");
       router.push("/home");
+      console.log(res);
     } catch (e) {
       console.log(e);
     }

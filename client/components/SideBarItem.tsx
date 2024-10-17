@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 interface SideBarItemProps {
-  title: string;
+  title?: string;
   icon: React.ReactNode;
   href?: string;
   onClick?: () => void;
@@ -11,8 +11,9 @@ interface SideBarItemProps {
 
 const SideBarItem: React.FC<SideBarItemProps> = ({ title, icon, href }) => {
   const router = useRouter();
-  function handleClick() {
-    router.push(`${href}`);
+  function handleClick(e: any) {
+    e.preventDefault();
+    router.push(`/${href}`);
   }
 
   return (

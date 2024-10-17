@@ -1,10 +1,41 @@
-import React from "react";
+"use client";
+import FetchPosts from "@/actions/action";
+import React, { useEffect, useState } from "react";
+import PostCard from "./PostCard";
+import Spinner from "./Spinner";
 
-const BottomProfile = () => {
+interface BottomProfileProps {
+  id?: string;
+  name?: string;
+  userName?: string;
+  bio?: string;
+  profileImage?: string;
+  coverImage?: string;
+}
+
+const BottomProfile = ({ UserInfo }: any) => {
+  const [posts, setPosts] = useState<any>([]);
+
+  useEffect(() => {
+    const getBottomPosts = async () => {
+      try {
+        const ans = await FetchPosts(UserInfo.id);
+        console.log(ans);
+        setPosts(ans || []);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    if (UserInfo.id) {
+      getBottomPosts();
+    }
+  }, [UserInfo.id]);
+
   return (
     <div>
-      <div className="border-b border-gray-700 mt-6">
-        <div className="flex space-x-6 text-gray-400">
+      <div className="border-b border-gray-700 mt-6 ">
+        <div className="flex space-x-6 text-gray-400 gap-5 mx-3">
           <button className="pb-2 border-b-4 border-blue-500 text-white">
             Posts
           </button>
@@ -16,22 +47,13 @@ const BottomProfile = () => {
         </div>
       </div>
 
-      <div className="mt-6 p-4 border border-gray-700 rounded-lg">
-        <p className="text-gray-400 text-sm">Pinned</p>
-        <p className="mt-2">
-          <span className="font-bold">Shreeram Mutukundu</span>{" "}
-          <span className="text-gray-400">@realshreeram312 · Apr 3</span>
-        </p>
-        <p className="mt-2">
-          T-100
-          <br />
-          Day 100/100🎉
-          <br />
-          1) Learned about Stacks and solved Maximal Rectangle problem.
-          <br />
-          2) Managed to understand folding algorithms...
-        </p>
-      </div>
+      {Array.isArray(posts) && posts.length > 0 ? (
+        posts.map((data: any) => <PostCard key={data.id} data={data} />)
+      ) : (
+        <div className=" flex items-center justify-center my-2 ">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

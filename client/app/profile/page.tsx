@@ -1,16 +1,12 @@
+"use client";
 import FollowBar from "@/components/FollowBar";
 import ProfileSection from "@/components/ProfileSection";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import React, { useEffect, useState } from "react";
-import { BiHomeAlt } from "react-icons/bi";
-import { BsSearch } from "react-icons/bs";
-import { CgMoreO, CgProfile } from "react-icons/cg";
+import { SidebarMenuItems } from "@/libs/sideitems";
 import { FaTwitter } from "react-icons/fa";
-import { IoNotificationsOutline, IoPeopleSharp } from "react-icons/io5";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { PiBookmarkSimpleLight } from "react-icons/pi";
-import { RiEditBoxLine } from "react-icons/ri";
+import { BiHomeAlt } from "react-icons/bi";
 
 // interface DataProps {
 //   id: string;
@@ -21,22 +17,6 @@ import { RiEditBoxLine } from "react-icons/ri";
 //   post: [];
 // }
 const Profile = () => {
-  const SidebarMenuItems = [
-    { title: "Home", icon: <BiHomeAlt />, href: "/" },
-    { title: "Explore", icon: <BsSearch />, href: "/explore" },
-    {
-      title: "Notifications",
-      icon: <IoNotificationsOutline />,
-      href: "/notifications",
-    },
-    { title: "Messages", icon: <MdOutlineMailOutline />, href: "/messages" },
-    { title: "Grok", icon: <RiEditBoxLine />, href: "/grok" },
-    { title: "Bookmarks", icon: <PiBookmarkSimpleLight />, href: "/bookmarks" },
-    { title: "Communities", icon: <IoPeopleSharp />, href: "/communities" },
-    { title: "Profile", icon: <CgProfile />, href: "/profile/123" },
-    { title: "More", icon: <CgMoreO />, href: "/more" },
-  ];
-
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       {/* Sidebar */}

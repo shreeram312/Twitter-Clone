@@ -17,9 +17,9 @@ datasource db {
 
 model User {
   id              String    @id @default(uuid()) // Use UUID for PostgreSQL
-  userAuthId      String?
+  userAuthId      String    @unique
   name            String?
-  userName        String   @unique
+  userName        String     @unique
   bio             String?
   email           String?   @unique
   emailVerified   DateTime?
@@ -42,7 +42,7 @@ model Post {
   bodyContent  String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  userId    String
+  userId    String   
   likedIds  String[]   
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments  Comment[]

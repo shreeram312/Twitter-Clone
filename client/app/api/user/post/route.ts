@@ -1,6 +1,8 @@
 import client from "@/libs/prismadb";
+import { getAuth } from "@clerk/nextjs/server";
+import { error } from "console";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -29,9 +31,29 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      return NextResponse.json({ error: "Not Authorized" }, { status: 403 });
+    }
+
+    const existingUser = await client.user.findUnique({
+      where: {
+        userAuthId: userId,
+      },
+    });
+
+    console.log(existingUser);
+
+    if (!existingUser) {
+      return NextResponse.json({ error: "Not There" }, { status: 411 });
+    }
+
     const getAllPosts = await client.post.findMany({
+      where: {
+        userId: existingUser.id,
+      },
       include: {
         user: {
           select: {
@@ -45,7 +67,6 @@ export async function GET() {
       },
     });
     revalidatePath("/");
-
     return NextResponse.json(getAllPosts);
   } catch (e) {
     console.log(e);

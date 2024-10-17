@@ -6,10 +6,7 @@ export default function Intro() {
   return (
     <div className="flex min-h-screen bg-black text-white">
       {/* Left Section for large screens */}
-      <div
-        className="flex-1 hidden lg:flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/path-to-your-image.jpg')" }}
-      >
+      <div className="flex-1 hidden lg:flex items-center justify-center bg-cover bg-center">
         <div className="text-center px-8">
           <h1 className="text-6xl font-bold mb-4">Join the conversation</h1>
           <p className="text-xl max-w-lg mx-auto">
@@ -27,9 +24,8 @@ export default function Intro() {
           <h2 className="text-3xl font-bold mb-8">Join Twitter today.</h2>
           <div className="space-y-4 max-w-xs w-full">
             {/* Sign In Button */}
-            <button className="w-full bg-blue-400 text-black font-bold py-2 px-4 rounded-full hover:bg-blue-500 transition duration-200">
-              <SignInButton>Get Started</SignInButton>
-            </button>
+            <button className="w-full bg-blue-400 text-black font-bold py-2 px-4 rounded-full hover:bg-blue-500 transition duration-200"></button>
+            <SignInButton>Get Started</SignInButton>
             {/* Login Link */}
 
             <a className="block text-center w-full border border-gray-300 text-gray-300 font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition duration-200">
