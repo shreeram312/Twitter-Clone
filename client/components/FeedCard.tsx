@@ -22,7 +22,7 @@ const FeedCard = ({ postdata }: any) => {
       <div className="col-span-2 sm:col-span-1">
         <Image
           className="rounded-full"
-          src={postdata.user.profileImage} // This could be dynamic based on user
+          src={postdata.user.profileImage}
           alt="userimage"
           width={50}
           height={50}
