@@ -20,7 +20,7 @@ const BottomProfile = ({ UserInfo }: any) => {
     const getBottomPosts = async () => {
       try {
         const ans = await FetchPosts(UserInfo.id);
-        console.log(ans);
+
         setPosts(ans || []);
       } catch (e) {
         console.log(e);

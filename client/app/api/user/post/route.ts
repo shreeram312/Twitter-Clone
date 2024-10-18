@@ -44,8 +44,6 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    console.log(existingUser);
-
     if (!existingUser) {
       return NextResponse.json({ error: "Not There" }, { status: 411 });
     }
@@ -62,6 +60,14 @@ export async function GET(req: NextRequest) {
             userName: true,
             profileImage: true,
             bio: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            userId: true,
+            postId: true,
+            body: true,
           },
         },
       },

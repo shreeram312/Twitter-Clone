@@ -42,7 +42,6 @@ const ProfileDetails = () => {
 
       toast.success("User created succesfully");
       router.push("/home");
-      console.log(res);
     } catch (e) {
       console.log(e);
     }

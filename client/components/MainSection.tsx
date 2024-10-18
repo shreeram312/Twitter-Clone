@@ -41,11 +41,13 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
       });
 
       setpostdata(postres.data);
+
       setLoading(false);
     };
 
     fetchPosts();
   }, []);
+  console.log();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,7 +56,7 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
       if (token) {
         localStorage.setItem("token", token);
       }
-      console.log(token);
+
       const res = await axios.get("/api/user", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -65,9 +67,6 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
     };
     fetchUser();
   }, []);
-
-  console.log(userData);
-  console.log(postdata);
 
   const addPost = (newPost: any) => {
     setpostdata((prevPosts) => [...prevPosts, newPost]);
@@ -96,7 +95,11 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all cursor-pointer">
         {Array.isArray(postdata) && postdata.length > 0 ? (
           postdata.map((postdata: any) => (
-            <FeedCard key={postdata.id} postdata={postdata} />
+            <FeedCard
+              key={postdata.id}
+              postdata={postdata}
+              commentcount={postdata.comments}
+            />
           ))
         ) : (
           <div className=" flex items-center justify-center my-2 ">

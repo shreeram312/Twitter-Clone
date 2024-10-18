@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import InteractionCard from "./InteractionCard";
 
 const PostCard = ({ data }: any) => {
   const formattedDate = new Date(data.createdAt).toLocaleDateString("en-IN", {

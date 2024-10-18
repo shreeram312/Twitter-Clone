@@ -1,30 +1,32 @@
 import React from "react";
 
-const CommentCard = () => {
+const CommentCard = ({ comment }: any) => {
   return (
-    <div>
-      <div className="border-b border-gray-600 pb-4 mb-4">
-        <div className="flex items-center mb-2">
-          <div className="mr-3">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="username"
-              className="rounded-full w-10 h-10"
-            />
-          </div>
-          <div>
-            <p className="text-sm font-bold">Dummy User</p>
-            <p className="text-xs text-gray-400">@dummyuser</p>
-          </div>
-        </div>
-        <p className="mb-2">This is a dummy comment for display purposes.</p>
-        <p className="text-xs text-gray-500">16 October at 11:05 pm</p>
+    <div className="flex items-start mt-4 px-4 py-2 border-b border-gray-700">
+      <div className="flex-shrink-0">
+        <img
+          className="w-10 h-10 rounded-full"
+          src={comment?.user?.profileImage}
+          alt={`${comment?.user?.userName || "Unknown User"}'s profile`}
+        />
+      </div>
 
-        {/* Render replies */}
-        <div className="mt-4">
-          {/* replies are here bro */}
-          {/* <ReplyCard />
-          <ReplyCard /> */}
+      <div className="flex-grow ml-3">
+        <div className="flex items-center">
+          <p className="text-sm font-semibold text-white">
+            {comment?.user?.userName || "Unknown User"}
+          </p>
+          <p className="ml-2 text-sm text-gray-400">
+            @{comment?.user?.userName || "unknown"}
+          </p>
+        </div>
+
+        <p className="text-white mt-1">{comment.body}</p>
+
+        <div className="flex items-center mt-2 text-gray-400 space-x-4 text-sm">
+          <span>{"12h"}</span>
+          <button className="hover:underline">Reply</button>
+          <button className="hover:underline">Like</button>
         </div>
       </div>
     </div>

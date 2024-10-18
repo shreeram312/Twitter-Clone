@@ -1,5 +1,6 @@
 "use server";
 import client from "@/libs/prismadb";
+import { revalidatePath } from "next/cache";
 
 export default async function FetchPosts(id: string | "") {
   if (!id) {
@@ -55,10 +56,66 @@ export async function FetchParticularPost(id: string) {
           name: true,
           profileImage: true,
           userName: true,
+          posts: true,
+        },
+      },
+      comments: {
+        select: {
+          id: true,
+          userId: true,
+          postId: true,
+          body: true,
         },
       },
     },
   });
 
   return fetchpost;
+}
+
+export async function AddComment(body: string, userId: string, postId: string) {
+  if (!body || !userId || !postId) return null;
+
+  const comment = await client.comment.create({
+    data: {
+      body: body,
+      userId: userId,
+      postId: postId,
+    },
+  });
+
+  return comment;
+}
+
+export async function FetchComments(postId: string) {
+  if (!postId) {
+    return null;
+  }
+
+  const res = await client.comment.findMany({
+    where: {
+      postId: postId,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          userName: true,
+          profileImage: true,
+        },
+      },
+
+      post: {
+        select: {
+          id: true,
+          bodyContent: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return res;
 }

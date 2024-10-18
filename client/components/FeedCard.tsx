@@ -4,8 +4,9 @@ import { BiMessageRounded, BiUpload } from "react-icons/bi";
 import { FaRetweet } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import InteractionCard from "./InteractionCard";
 
-const FeedCard = ({ postdata }: any) => {
+const FeedCard = ({ postdata, commentcount }: any) => {
   const router = useRouter();
 
   const handleChangeRoute = useCallback(
@@ -34,24 +35,9 @@ const FeedCard = ({ postdata }: any) => {
           {postdata.user.userName}
         </h5>
         <p className="text-sm sm:text-base">{postdata.bodyContent}</p>
-        {/* Interaction icons */}
-        <div className="flex justify-between sm:space-x-24 mt-2 w-full sm:w-[50%]">
-          <div className="flex items-center space-x-2">
-            <BiMessageRounded size={18} />
-            <span className="hidden sm:block text-xs">10</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <FaRetweet size={18} />
-            <span className="hidden sm:block text-xs">5</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <AiOutlineHeart size={18} />
-            <span className="hidden sm:block text-xs">20</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <BiUpload size={18} />
-          </div>
-        </div>
+      </div>
+      <div className="mx-12 p-2 ">
+        <InteractionCard postdata={postdata} commentcount={commentcount} />
       </div>
     </div>
   );

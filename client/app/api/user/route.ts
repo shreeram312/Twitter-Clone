@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: NextRequest) {
   const { userId } = getAuth(req);
-  console.log(userId);
+
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
