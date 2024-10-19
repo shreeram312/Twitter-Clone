@@ -1,4 +1,5 @@
 import React from "react";
+import { FcLike } from "react-icons/fc";
 
 const CommentCard = ({ comment }: any) => {
   return (

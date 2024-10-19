@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaImage, FaSmile, FaMapMarkerAlt } from "react-icons/fa";
 import { BsCardImage, BsEmojiSmile, BsCalendarEvent } from "react-icons/bs";
 import { IoMdGift } from "react-icons/io";

@@ -119,3 +119,41 @@ export async function FetchComments(postId: string) {
 
   return res;
 }
+
+export async function ToggleLikePost(postId: string, userId: string) {
+  const post = await client.post.findUnique({
+    where: {
+      id: postId,
+    },
+    select: {
+      likedIds: true,
+    },
+  });
+
+  if (post) {
+    if (post.likedIds.includes(userId)) {
+      const res = await client.post.update({
+        where: { id: postId },
+        data: {
+          likedIds: {
+            set: post.likedIds.filter((id) => id !== userId),
+          },
+        },
+      });
+      return res;
+    } else {
+      // Like the post by adding the userId to likedIds
+      const res = await client.post.update({
+        where: { id: postId },
+        data: {
+          likedIds: {
+            push: userId,
+          },
+        },
+      });
+      return res;
+    }
+  }
+
+  return { message: "Post not found" };
+}

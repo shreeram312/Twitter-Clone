@@ -62,6 +62,9 @@ export async function GET(req: NextRequest) {
           include: {
             comments: true,
           },
+          orderBy: {
+            createdAt: "asc",
+          },
         },
       },
     });
@@ -87,11 +90,9 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    // Parse the request body
     const body = await req.json();
     const { coverImage, userName } = body;
 
-    // Check if the user exists
     const existingUser = await client.user.findFirst({
       where: { userName },
     });
@@ -100,12 +101,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Ensure that the authenticated user is the owner of the account being updated
     if (existingUser.userAuthId !== userId) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
-    // Update the cover image
     const updatedUser = await client.user.update({
       where: {
         userName: userName,
@@ -115,7 +114,6 @@ export async function PATCH(req: NextRequest) {
       },
     });
 
-    // Return the updated user data
     return NextResponse.json(updatedUser, { status: 200 });
   } catch (error) {
     console.error("Error updating cover image:", error);

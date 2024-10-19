@@ -62,7 +62,12 @@ export async function GET(req: NextRequest) {
             bio: true,
           },
         },
+
         comments: true,
+      },
+
+      orderBy: {
+        createdAt: "desc", // or 'asc', depending on your requirement
       },
     });
     revalidatePath("/");

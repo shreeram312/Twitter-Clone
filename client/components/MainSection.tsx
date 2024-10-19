@@ -15,6 +15,7 @@ import { CgSpinner } from "react-icons/cg";
 import Spinner from "./Spinner";
 import SkeletonFeedCard from "@/libs/SkeletonFeedCard";
 import InteractionCard from "./InteractionCard";
+import { FetchComments } from "@/actions/action";
 
 interface MainSectionProps {
   label?: string;
@@ -49,8 +50,9 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
 
     fetchPosts();
   }, []);
-  console.log();
 
+  console.log(postdata);
+  console.log("hjj");
   useEffect(() => {
     const fetchUser = async () => {
       const token = await getToken();
@@ -71,8 +73,10 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
   }, []);
 
   const addPost = (newPost: any) => {
-    setpostdata((prevPosts) => [...prevPosts, newPost]);
+    setpostdata((prevPosts) => [newPost, ...prevPosts]);
   };
+
+  console.log(postdata);
 
   return (
     <div>
@@ -95,12 +99,24 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
       />
 
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all cursor-pointer">
-        {Array.isArray(postdata) && postdata.length > 0 ? (
-          postdata.map((postdata: any) => (
-            <FeedCard key={postdata.id} postdata={postdata} />
-          ))
+        {Array.isArray(postdata) ? (
+          postdata.map((post: any) => {
+            console.log(post.userId);
+            console.log("fbkwb");
+            return (
+              <FeedCard
+                key={post.id}
+                postdata={post}
+                comments={post?.comments?.length}
+                likes={post?.likedIds?.length}
+                likedIds={post?.likedIds}
+                postId={post?.id}
+                userId={post.userId}
+              />
+            );
+          })
         ) : (
-          <div className=" ">
+          <div>
             <SkeletonFeedCard />
             <SkeletonFeedCard />
             <SkeletonFeedCard />
