@@ -62,14 +62,7 @@ export async function GET(req: NextRequest) {
             bio: true,
           },
         },
-        comments: {
-          select: {
-            id: true,
-            userId: true,
-            postId: true,
-            body: true,
-          },
-        },
+        comments: true,
       },
     });
     revalidatePath("/");

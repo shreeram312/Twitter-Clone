@@ -58,7 +58,11 @@ export async function GET(req: NextRequest) {
     const user = await client.user.findUnique({
       where: { userAuthId: userId },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            comments: true,
+          },
+        },
       },
     });
 

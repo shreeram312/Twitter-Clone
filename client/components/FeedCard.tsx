@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import InteractionCard from "./InteractionCard";
 
-const FeedCard = ({ postdata, commentcount }: any) => {
+const FeedCard = ({ postdata }: any) => {
   const router = useRouter();
 
   const handleChangeRoute = useCallback(
@@ -37,7 +37,7 @@ const FeedCard = ({ postdata, commentcount }: any) => {
         <p className="text-sm sm:text-base">{postdata.bodyContent}</p>
       </div>
       <div className="mx-12 p-2 ">
-        <InteractionCard postdata={postdata} commentcount={commentcount} />
+        <InteractionCard postdata={postdata} />
       </div>
     </div>
   );
