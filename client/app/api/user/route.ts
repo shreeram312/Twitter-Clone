@@ -73,7 +73,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json(user, { status: 200 });
+    const { hashedPassword, hasNotification, emailVerified, ...userData } =
+      user;
+
+    return NextResponse.json(userData, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

@@ -2,11 +2,70 @@ import React from "react";
 
 const FollowBar: React.FC = () => {
   return (
-    <div>
-      <div className="p-2 w-64">
-        <div className="bg-neutral-900  rounded-xl p-4 hidden md:block ">
-          <h1 className="text-white  text-xl font-semibold">Who to follow</h1>
-          <div className="flex flex-col gap-6 mt-4 ">todos use rlist</div>
+    <div className="flex flex-col gap-10 ">
+      <div className=" w-80 my-6 outline outline-offset- outline-1 outline-gray-600 rounded-lg  ">
+        <div className="bg-black text-white p-4  ">
+          <div className="   ">
+            <h2 className="font-semibold text-md break-words">
+              Whom To Follow
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-black w-80 p-4 rounded-lg outline outline-offset-1 outline-1 outline-gray-600   ">
+        <h2 className="font-bold text-lg mb-4">What's happening</h2>
+
+        <div className="flex space-x-4 mb-4">
+          <img
+            src="https://via.placeholder.com/50"
+            alt="Event Image"
+            className="w-12 h-12 rounded-lg"
+          />
+          <div>
+            <p className="font-bold">The Offseason</p>
+            <p className="text-sm text-gray-400">Event • LIVE</p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-gray-400 text-sm">Trending in India</p>
+              <p className="font-bold">#Arrest_Richa_Rajput</p>
+              <p className="text-sm text-gray-400">4,498 posts</p>
+            </div>
+            <div className="text-gray-400">•••</div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-gray-400 text-sm">Entertainment • Trending</p>
+              <p className="font-bold">#BishnoiGang</p>
+              <p className="text-sm text-gray-400">10.3K posts</p>
+            </div>
+            <div className="text-gray-400">•••</div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-gray-400 text-sm">Entertainment • Trending</p>
+              <p className="font-bold">#IndVSNZ</p>
+              <p className="text-sm text-gray-400">
+                Trending with <span className="text-blue-500">#ViratKohli</span>
+              </p>
+            </div>
+            <div className="text-gray-400">•••</div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-gray-400 text-sm">Sports • Trending</p>
+              <p className="font-bold">CLUELESS CAPTAIN ROHIT</p>
+              <p className="text-sm text-gray-400">15.1K posts</p>
+            </div>
+            <div className="text-gray-400">•••</div>
+          </div>
         </div>
       </div>
     </div>

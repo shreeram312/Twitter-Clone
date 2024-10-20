@@ -20,14 +20,24 @@ import { FetchComments } from "@/actions/action";
 interface MainSectionProps {
   label?: string;
   showBackArrow?: boolean;
+  setuserData: any;
+  userData: any;
+  loading: any;
+  setLoading: any;
 }
 
-const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
+const MainSection: React.FC<MainSectionProps> = ({
+  setuserData,
+  userData,
+  loading,
+  setLoading,
+  showBackArrow,
+  label,
+}: any) => {
   const router = useRouter();
-  const [userData, setuserData] = useState<any>(null);
+
   const [postdata, setpostdata] = useState<any[]>([]);
   const { getToken } = useAuth();
-  const [loading, setLoading] = useState<boolean>(false);
 
   const handleback = useCallback(() => {
     router.back();

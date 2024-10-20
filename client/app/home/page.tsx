@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTwitter } from "react-icons/fa";
 import { BiHomeAlt } from "react-icons/bi";
 import MainSection from "@/components/MainSection";
@@ -8,6 +8,8 @@ import SidebarTweetButton from "@/components/SidebarTweetButton";
 import FollowBar from "@/components/FollowBar";
 import { useRouter } from "next/navigation";
 import { SidebarMenuItems } from "@/libs/sideitems";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
 
 const FollowingSection = () => {
   return (
@@ -21,7 +23,29 @@ const FollowingSection = () => {
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
   const router = useRouter();
+  const [userData, setuserData] = useState<any>(null);
 
+  const { getToken } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = await getToken();
+      setLoading(true);
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      const res = await axios.get("/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setuserData(res.data);
+      setLoading(false);
+    };
+    fetchUser();
+  }, []);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -72,7 +96,16 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {activeTab === "forYou" ? <MainSection /> : <FollowingSection />}
+        {activeTab === "forYou" ? (
+          <MainSection
+            setuserData={setuserData}
+            userData={userData}
+            loading={loading}
+            setLoading={setLoading}
+          />
+        ) : (
+          <FollowingSection />
+        )}
       </div>
 
       <FollowBar />
