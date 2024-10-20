@@ -28,9 +28,12 @@ export default async function FetchPosts(id: string | "") {
           name: true,
           profileImage: true,
           createdAt: true,
+          posts: true,
         },
       },
+      comments: true,
     },
+
     orderBy: {
       createdAt: "desc",
     },
@@ -157,3 +160,5 @@ export async function ToggleLikePost(postId: string, userId: string) {
 
   return { message: "Post not found" };
 }
+
+export async function PostImage() {}

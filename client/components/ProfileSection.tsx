@@ -48,7 +48,7 @@ export default function ProfileSection() {
             coverImage: coverurl,
             userName: UserInfo.userName,
           });
-          // Optionally update UserInfo state to reflect the changes
+
           setUserInfo((prev) => ({ ...prev, coverImage: coverurl }));
         } catch (error) {
           console.error("Error updating cover image:", error);
@@ -81,14 +81,20 @@ export default function ProfileSection() {
           alt="Profile background"
           className="object-cover w-full h-full"
         />
-        <div className="absolute bottom-0 left-4 transform translate-y-1/2">
-          <Image
-            src={UserInfo.profileImage || ""}
-            width={150}
-            height={140}
-            alt="Profile"
-            className="rounded-full w-24 h-24 border-4 border-black"
-          />
+        <div className="relative">
+          <div className="absolute bottom-5 left-3 transform translate-y-1/2">
+            <Image
+              src={UserInfo.profileImage || ""}
+              width={150}
+              height={140}
+              alt="Profile"
+              className="rounded-full w-24 h-24 border-4 border-black"
+            />
+          </div>
+
+          <div className="absolute bottom-0 left-20 transform translate-y-2/3 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer border-2 border-white">
+            <span className="text-lg font-bold my-4">+</span>
+          </div>
         </div>
 
         <div className="mt-12 px-4">

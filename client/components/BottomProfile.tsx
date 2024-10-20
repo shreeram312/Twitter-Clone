@@ -3,6 +3,8 @@ import FetchPosts from "@/actions/action";
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import Spinner from "./Spinner";
+import InteractionCard from "./InteractionCard";
+import { useRouter } from "next/navigation";
 
 interface BottomProfileProps {
   id?: string;
@@ -15,6 +17,7 @@ interface BottomProfileProps {
 
 const BottomProfile = ({ UserInfo }: any) => {
   const [posts, setPosts] = useState<any>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const getBottomPosts = async () => {
@@ -48,9 +51,19 @@ const BottomProfile = ({ UserInfo }: any) => {
       </div>
 
       {Array.isArray(posts) && posts.length > 0 ? (
-        posts.map((data: any) => <PostCard key={data.id} data={data} />)
+        posts.map((data: any) => (
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              router.push(`/home/${data.id}`);
+            }}
+            key={data.id}
+          >
+            <PostCard data={data} />
+          </div>
+        ))
       ) : (
-        <div className=" flex items-center justify-center my-2 ">
+        <div className="flex items-center justify-center my-2">
           <Spinner />
         </div>
       )}

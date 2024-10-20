@@ -98,11 +98,9 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
         imageUrl={userData?.profileImage}
       />
 
-      <div className="border border-r-0 border-l-0 border-gray-700 transition-all cursor-pointer">
+      <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap ">
         {Array.isArray(postdata) ? (
           postdata.map((post: any) => {
-            console.log(post.userId);
-            console.log("fbkwb");
             return (
               <FeedCard
                 key={post.id}
@@ -111,7 +109,8 @@ const MainSection: React.FC<MainSectionProps> = ({ label, showBackArrow }) => {
                 likes={post?.likedIds?.length}
                 likedIds={post?.likedIds}
                 postId={post?.id}
-                userId={post.userId}
+                userId={post?.userId}
+                postImage={post?.postImage}
               />
             );
           })

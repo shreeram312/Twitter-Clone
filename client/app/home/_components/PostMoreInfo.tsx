@@ -48,7 +48,6 @@ const PostMoreInfo = ({ postmore }: any) => {
 
   return (
     <div className="max-w-xl mx-auto p-4 border-b border-gray-700 text-white space-y-4">
-      {/* User Profile Section */}
       <div className="flex items-start justify-between">
         <div className="flex space-x-4 items-center">
           <Image
@@ -65,9 +64,19 @@ const PostMoreInfo = ({ postmore }: any) => {
         </div>
       </div>
 
-      <div className="whitespace-pre-wrap text-lg mx-4 text-gray-200 leading-relaxed">
+      <div className="whitespace-pre-wrap break-words text-lg mx-4 text-gray-200 leading-relaxed">
         <p>{postmore?.bodyContent}</p>
       </div>
+      {postmore.postImage && (
+        <div onClick={() => {}} className=" mx-6">
+          <Image
+            src={postmore.postImage}
+            height={450}
+            width={450}
+            alt="noimage"
+          />
+        </div>
+      )}
 
       <p className="text-sm text-gray-500">{formattedDate}</p>
 

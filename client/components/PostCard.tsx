@@ -7,11 +7,12 @@ const PostCard = ({ data }: any) => {
     day: "numeric",
     month: "long",
   });
+  console.log(data);
   return (
-    <div>
-      <div className="mt-6 p-4 border border-gray-700 rounded-lg">
+    <div className="overflow-hidden break-words">
+      <div className="mt-6 p-4 border border-gray-700 rounded-lg ">
         {/* <p className="text-gray-400 text-sm ">Pinned</p> */}
-        <div className="mt-2 flex items-center">
+        <div className="mt-2 flex items-center \">
           <Image
             src={data.user.profileImage}
             width={40}
@@ -27,6 +28,25 @@ const PostCard = ({ data }: any) => {
           </div>
         </div>
         <p className=" mx-10 text-justify">{data.bodyContent}</p>
+        {data.postImage && (
+          <div className="mx-6 p-2">
+            <Image
+              src={data.postImage}
+              height={450}
+              width={450}
+              alt="noimage"
+            />
+          </div>
+        )}
+        <div className="mx-6">
+          <InteractionCard
+            postdata={data}
+            comments={data.comments?.length}
+            likes={data?.likedIds?.length}
+            userId={data?.userId}
+            postId={data?.id}
+          />
+        </div>
       </div>
     </div>
   );

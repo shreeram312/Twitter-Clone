@@ -6,12 +6,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId, bodyContent } = await req.json();
+    const { userId, bodyContent, postImage } = await req.json();
 
     const post = await client.post.create({
       data: {
         userId,
         bodyContent,
+        postImage,
       },
       include: {
         user: {
