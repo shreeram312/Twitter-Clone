@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import InteractionCard from "./InteractionCard";
 
 const PostCard = ({ data }: any) => {
@@ -7,18 +7,18 @@ const PostCard = ({ data }: any) => {
     day: "numeric",
     month: "long",
   });
-  console.log(data);
+
   return (
     <div className="overflow-hidden break-words">
       <div className="mt-6 p-4 border border-gray-700 rounded-lg ">
         {/* <p className="text-gray-400 text-sm ">Pinned</p> */}
-        <div className="mt-2 flex items-center \">
+        <div className="mt-2 flex items-center ">
           <Image
             src={data.user.profileImage}
             width={40}
             height={40}
             alt="profileimage"
-            className="rounded-full"
+            className="rounded-full h-12 w-12"
           />
           <div className="ml-2">
             <span className="font-bold text-lg">{data.user.name}</span>

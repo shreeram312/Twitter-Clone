@@ -6,18 +6,27 @@ import { useAuth } from "@clerk/nextjs";
 import BottomProfile from "./BottomProfile";
 
 interface UserInfoState {
-  id?: string;
+  id: string;
   name?: string;
   userName?: string;
   bio?: string;
   profileImage?: string;
-  coverImage?: string; // Add coverImage to state
+  coverImage?: string;
 }
 
 export default function ProfileSection() {
-  const [UserInfo, setUserInfo] = useState<UserInfoState>({});
+  const [UserInfo, setUserInfo] = useState<UserInfoState>({
+    id: "",
+    name: "",
+    userName: "",
+    bio: "",
+    profileImage: "",
+    coverImage: "",
+  });
   const [coverurl, setcoverurl] = useState("");
   const { getToken } = useAuth();
+  const [updateprofileImage, setupdateprofileImage] = useState<string>("");
+  console.log(UserInfo);
 
   useEffect(() => {
     const fetchRes = async () => {
@@ -38,17 +47,36 @@ export default function ProfileSection() {
       }
     };
     fetchRes();
-  }, []);
+  }, [updateprofileImage]);
+
+  useEffect(() => {
+    if (updateprofileImage) {
+      const update = async () => {
+        try {
+          const res = await axios.patch("/api/user/profileImage", {
+            userName: UserInfo.userName,
+            profileImage: updateprofileImage,
+          });
+          setUserInfo((prev) => ({
+            ...prev,
+            profileImage: updateprofileImage,
+          }));
+        } catch (error) {
+          console.error("Error updating profile image:", error);
+        }
+      };
+      update();
+    }
+  }, [updateprofileImage]);
 
   useEffect(() => {
     if (coverurl) {
       const updateCoverImage = async () => {
         try {
-          const res = await axios.patch("/api/user", {
+          await axios.patch("/api/user", {
             coverImage: coverurl,
             userName: UserInfo.userName,
           });
-
           setUserInfo((prev) => ({ ...prev, coverImage: coverurl }));
         } catch (error) {
           console.error("Error updating cover image:", error);
@@ -56,7 +84,7 @@ export default function ProfileSection() {
       };
       updateCoverImage();
     }
-  }, [coverurl, UserInfo.userName]); // Update the cover image only if coverurl changes
+  }, [coverurl, UserInfo.userName]);
 
   return (
     <div className="bg-black text-white min-h-screen p-2">
@@ -86,14 +114,33 @@ export default function ProfileSection() {
             <Image
               src={UserInfo.profileImage || ""}
               width={150}
-              height={140}
+              height={150}
               alt="Profile"
               className="rounded-full w-24 h-24 border-4 border-black"
             />
           </div>
 
           <div className="absolute bottom-0 left-20 transform translate-y-2/3 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer border-2 border-white">
-            <span className="text-lg font-bold my-4">+</span>
+            <CldUploadWidget
+              onSuccess={(results: any) => {
+                const transformedUrl = results.info.secure_url.replace(
+                  "/upload/",
+                  "/upload/c_fill,g_face,r_max,w_200,h_200/"
+                );
+                setupdateprofileImage(transformedUrl);
+                setUserInfo((prev) => ({
+                  ...prev,
+                  profileImage: transformedUrl,
+                }));
+              }}
+              uploadPreset="shree-image"
+            >
+              {({ open }) => (
+                <span onClick={() => open()} className="text-lg font-bold my-4">
+                  +
+                </span>
+              )}
+            </CldUploadWidget>
           </div>
         </div>
 

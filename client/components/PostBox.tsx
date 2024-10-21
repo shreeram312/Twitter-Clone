@@ -82,7 +82,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
             }}
             placeholder="What is happening?!"
             className="h-auto w-full bg-black text-white p-2 border-b border-gray-600 focus:outline-none resize-none"
-            rows={2} // Default rows
+            rows={2}
           />
 
           <div className="flex justify-between items-center mt-2">

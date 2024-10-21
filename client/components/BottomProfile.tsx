@@ -18,22 +18,21 @@ interface BottomProfileProps {
 const BottomProfile = ({ UserInfo }: any) => {
   const [posts, setPosts] = useState<any>([]);
   const router = useRouter();
+  console.log(UserInfo);
 
   useEffect(() => {
     const getBottomPosts = async () => {
       try {
         const ans = await FetchPosts(UserInfo.id);
 
-        setPosts(ans || []);
+        setPosts(ans);
       } catch (e) {
         console.log(e);
       }
     };
 
-    if (UserInfo.id) {
-      getBottomPosts();
-    }
-  }, [UserInfo.id]);
+    getBottomPosts();
+  }, [UserInfo.id, UserInfo.profileImage]);
 
   return (
     <div>

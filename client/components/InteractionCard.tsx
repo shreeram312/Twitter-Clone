@@ -14,10 +14,6 @@ const InteractionCard = ({
 }: any) => {
   const [isliked, setisliked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
-  console.log(postdata);
-
-  console.log(postId);
-  console.log(userId);
 
   useEffect(() => {
     setisliked(postdata.likedIds.includes(postdata.user.id));

@@ -160,5 +160,3 @@ export async function ToggleLikePost(postId: string, userId: string) {
 
   return { message: "Post not found" };
 }
-
-export async function PostImage() {}
