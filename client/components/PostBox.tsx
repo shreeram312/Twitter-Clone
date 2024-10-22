@@ -77,11 +77,18 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
             ref={textareaRef}
             value={postContent}
             onChange={(e) => {
-              setPostContent(e.target.value);
+              const value = e.target.value;
+              setPostContent(value);
               handleResizeTextarea();
             }}
             placeholder="What is happening?!"
-            className="h-auto w-full bg-black text-white p-2 border-b border-gray-600 focus:outline-none resize-none"
+            className={`h-auto w-full bg-black p-2 border-b border-gray-600 focus:outline-none resize-none ${
+              postContent.startsWith("#") &&
+              !postContent.startsWith("# ") &&
+              !postContent.includes(" ")
+                ? "text-blue-500"
+                : "text-white"
+            }`}
             rows={2}
           />
 
@@ -110,7 +117,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
                 className="cursor-pointer hover:text-blue-300 transition"
                 size={20}
               />
-              <AiOutlineBars
+              {/* <AiOutlineBars
                 className="cursor-pointer hover:text-blue-300 transition"
                 size={20}
               />
@@ -126,7 +133,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
               <FaMapMarkerAlt
                 className="cursor-pointer hover:text-blue-300 transition"
                 size={20}
-              />
+              /> */}
             </div>
 
             <button

@@ -4,7 +4,7 @@ const SkeletonFeedCard = () => {
   return (
     <div className="grid grid-cols-12 border-b border-gray-700  animate-pulse transition duration-200 ease-in-out p-6">
       <div className="col-span-2 sm:col-span-1">
-        <div className="rounded-full bg-gray-700 h-12 w-12"></div>
+        <div className="rounded-full bg-gray-700 h-12 w-12">jkwdh</div>
       </div>
 
       <div className="col-span-10 sm:col-span-11 mx-2 ">

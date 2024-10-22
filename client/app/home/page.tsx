@@ -108,7 +108,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      <FollowBar />
+      <FollowBar UserData={userData} />
     </div>
   );
 }

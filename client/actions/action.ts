@@ -160,3 +160,8 @@ export async function ToggleLikePost(postId: string, userId: string) {
 
   return { message: "Post not found" };
 }
+
+export async function GetAllUsers() {
+  const users = await client.user.findMany({});
+  return users;
+}
