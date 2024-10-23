@@ -1,7 +1,6 @@
-import { hostname } from "os";
-
 const nextConfig = {
   reactStrictMode: false,
+
   env: {
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "dkrrut1cp",
     NEXT_PUBLIC_CLOUDINARY_PRESET_NAME: "shree-image",

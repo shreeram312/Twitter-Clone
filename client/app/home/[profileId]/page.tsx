@@ -14,6 +14,7 @@ import { RiArrowGoBackLine } from "react-icons/ri";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import PostMoreInfo from "../_components/PostMoreInfo";
+import { AnyCnameRecord } from "dns";
 
 interface PostData {
   id: string;
@@ -24,10 +25,12 @@ interface PostData {
 const PostIdSlug = () => {
   const params = useParams();
   const router = useRouter();
-  const [postmore, setPostMore] = useState<PostData | null>(null);
+  const [postmore, setPostMore] = useState<any>();
   const postId = Array.isArray(params.profileId)
     ? params.profileId[0]
     : params.profileId;
+
+  console.log(postmore);
 
   useEffect(() => {
     const getData = async () => {
@@ -40,10 +43,8 @@ const PostIdSlug = () => {
       }
     };
 
-    if (postId) {
-      getData();
-    }
-  }, [postId]);
+    getData();
+  }, []);
 
   const handleBack = useCallback(() => {
     router.back();
@@ -87,7 +88,7 @@ const PostIdSlug = () => {
         {postmore ? <PostMoreInfo postmore={postmore} /> : <Spinner />}
       </div>
 
-      <FollowBar />
+      <FollowBar UserData={postmore?.user} />
     </div>
   );
 };

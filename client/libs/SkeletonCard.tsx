@@ -1,18 +1,14 @@
-import React from "react";
-
-const SkeletonFeedCard = () => {
+const SkeletonCard = () => {
   return (
     <div className="grid grid-cols-12 border-b border-gray-700  animate-pulse transition duration-200 ease-in-out p-6">
       <div className="col-span-2 sm:col-span-1">
-        <div className="rounded-full bg-gray-700 h-12 w-12">jkwdh</div>
+        <div className="rounded-full bg-gray-700 h-12 w-12"></div>
       </div>
 
-      <div className="col-span-10 sm:col-span-11 mx-2 ">
-        <div className="bg-gray-700 h-4 w-[10px] mb-2 rounded text-gray-700">
-          hb
-        </div>
+      <div className="col-span-10 sm:col-span-11 mx-2 p-2 ">
+        <div className="bg-gray-700 h-4  mb-2 rounded text-gray-700">hb</div>
 
-        <div className="bg-gray-700 h-20 w-full p-2  rounded text-gray-700">
+        <div className="bg-gray-700 h-24 w-full p-2  rounded text-gray-700">
           kzdhd
         </div>
       </div>
@@ -41,4 +37,4 @@ const SkeletonFeedCard = () => {
   );
 };
 
-export default SkeletonFeedCard;
+export default SkeletonCard;

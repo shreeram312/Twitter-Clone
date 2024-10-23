@@ -5,12 +5,7 @@ import Intro from "./Intro/page";
 import { auth } from "@clerk/nextjs/server";
 
 const page = () => {
-  const { userId } = auth();
-  if (!userId) {
-    redirect("/userdetails");
-  } else {
-    redirect("/home");
-  }
+  return <div>hji</div>;
 };
 
 export default page;

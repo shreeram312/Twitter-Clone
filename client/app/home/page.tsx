@@ -11,6 +11,8 @@ import { SidebarMenuItems } from "@/libs/sideitems";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
+import SkeletonCard from "@/libs/SkeletonCard";
+
 const FollowingSection = () => {
   return (
     <div className="p-4">
@@ -23,29 +25,33 @@ const FollowingSection = () => {
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
   const router = useRouter();
-  const [userData, setuserData] = useState<any>(null);
-
+  const [userData, setUserData] = useState<any>(null);
   const { getToken } = useAuth();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); // Initialize loading to true
 
   useEffect(() => {
     const fetchUser = async () => {
       const token = await getToken();
-      setLoading(true);
       if (token) {
         localStorage.setItem("token", token);
       }
 
-      const res = await axios.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setuserData(res.data);
-      setLoading(false);
+      try {
+        const res = await axios.get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserData(res.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false); // Ensure loading is set to false after fetch
+      }
     };
     fetchUser();
-  }, []);
+  }, [getToken]); // Add getToken as a dependency
+
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -98,7 +104,7 @@ export default function Dashboard() {
 
         {activeTab === "forYou" ? (
           <MainSection
-            setuserData={setuserData}
+            setuserData={setUserData}
             userData={userData}
             loading={loading}
             setLoading={setLoading}
@@ -108,6 +114,7 @@ export default function Dashboard() {
         )}
       </div>
 
+      {/* Conditional rendering for loading state */}
       <FollowBar UserData={userData} />
     </div>
   );

@@ -60,7 +60,7 @@ const ReplyBox = ({ postmore, commentlist, setcommentlist }: any) => {
         <Image
           height={50}
           width={50}
-          src={postmore.user.profileImage}
+          src={postmore?.user?.profileImage}
           alt="user avatar"
           className="rounded-full w-10 h-10 mr-3"
         />
@@ -68,7 +68,7 @@ const ReplyBox = ({ postmore, commentlist, setcommentlist }: any) => {
         <div className="flex-grow p-2">
           <p className="text-xs text-gray-400 mb-1">
             Replying to{" "}
-            <span className="text-blue-500">@{postmore.user.userName}</span>
+            <span className="text-blue-500">@{postmore?.user?.userName}</span>
           </p>
 
           <input

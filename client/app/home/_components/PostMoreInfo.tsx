@@ -10,7 +10,7 @@ import { ToggleLikePost } from "@/actions/action";
 const PostMoreInfo = ({ postmore }: any) => {
   const [commentlist, setcommentlist] = useState<any[]>([]);
   const [isliked, setisliked] = useState<boolean>(false);
-  const [likeCount, setLikeCount] = useState<number>(postmore.likedIds.length);
+  const [likeCount, setLikeCount] = useState<number>(postmore.likedIds?.length);
   console.log(postmore);
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
@@ -24,8 +24,8 @@ const PostMoreInfo = ({ postmore }: any) => {
   );
 
   useEffect(() => {
-    const userId = postmore.user.id;
-    const isPostLiked = postmore.likedIds.includes(userId);
+    const userId = postmore?.user?.id;
+    const isPostLiked = postmore?.likedIds?.includes(userId);
     setisliked(isPostLiked);
   }, [postmore]);
 

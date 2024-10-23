@@ -13,9 +13,10 @@ import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import Spinner from "./Spinner";
-import SkeletonFeedCard from "@/libs/SkeletonFeedCard";
+
 import InteractionCard from "./InteractionCard";
 import { FetchComments } from "@/actions/action";
+import SkeletonCard from "@/libs/SkeletonCard";
 
 interface MainSectionProps {
   label?: string;
@@ -109,7 +110,7 @@ const MainSection: React.FC<MainSectionProps> = ({
       />
 
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap ">
-        {Array.isArray(postdata) ? (
+        {Array.isArray(postdata) &&
           postdata.map((post: any) => {
             return (
               <FeedCard
@@ -123,13 +124,13 @@ const MainSection: React.FC<MainSectionProps> = ({
                 postImage={post?.postImage}
               />
             );
-          })
-        ) : (
+          })}
+        {loading && (
           <div>
-            <SkeletonFeedCard />
-            <SkeletonFeedCard />
-            <SkeletonFeedCard />
-            <SkeletonFeedCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
           </div>
         )}
       </div>

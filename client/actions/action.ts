@@ -161,7 +161,31 @@ export async function ToggleLikePost(postId: string, userId: string) {
   return { message: "Post not found" };
 }
 
-export async function GetAllUsers() {
-  const users = await client.user.findMany({});
-  return users;
+export async function GetAllUsers(id: string) {
+  console.log("Fetching users, excluding ID:", id);
+
+  const user = await client.user.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  if (!user) {
+    console.log("User not found with the provided ID:", id);
+    return [];
+  }
+
+  console.log("Current user to exclude:", user.id);
+
+  const filtered = await client.user.findMany({
+    where: {
+      id: {
+        not: user.id,
+      },
+    },
+  });
+
+  console.log("Users fetched, excluding the current user:", filtered);
+
+  return filtered;
 }
