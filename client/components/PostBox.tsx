@@ -66,7 +66,6 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
         <div className="w-full">
           {postImage && (
             <div className="relative">
-              {/* Image Component */}
               <Image
                 src={postImage}
                 height={450}
@@ -75,7 +74,6 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
                 className="object-cover rounded-md"
               />
 
-              {/* ImCross positioned at the top right of the image */}
               <ImCross
                 className="absolute top-2 right-2 h-6 w-6 bg-white rounded-full text-red-700 cursor-pointer"
                 onClick={() => setpostImage("")}
