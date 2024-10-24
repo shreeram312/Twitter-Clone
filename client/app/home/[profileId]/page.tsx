@@ -15,6 +15,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import PostMoreInfo from "../_components/PostMoreInfo";
 import { AnyCnameRecord } from "dns";
+import Trending from "@/components/Trending";
 
 interface PostData {
   id: string;
@@ -89,6 +90,9 @@ const PostIdSlug = () => {
       </div>
 
       <FollowBar UserData={postmore?.user} />
+      <div className=" flex  items-center">
+        <Trending />
+      </div>
     </div>
   );
 };

@@ -7,11 +7,39 @@ import React, { useEffect, useState } from "react";
 import { SidebarMenuItems } from "@/libs/sideitems";
 import { FaTwitter } from "react-icons/fa";
 import { BiHomeAlt } from "react-icons/bi";
+import Trending from "@/components/Trending";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
 
 const Profile = () => {
+  const [userData, setUserData] = useState<any>(null);
+  const { getToken } = useAuth();
+  const [loading, setLoading] = useState<boolean>(true); // Initialize loading to true
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = await getToken();
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      try {
+        const res = await axios.get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserData(res.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [getToken]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
-      {/* Sidebar */}
       <div className="col-span-2 py-4">
         <div className="hover:bg-gray-800 hover:rounded-full h-fit w-fit p-1 cursor-pointer transition-all">
           <FaTwitter size={40} />
@@ -40,7 +68,9 @@ const Profile = () => {
         <ProfileSection />
       </div>
 
-      <FollowBar />
+      <FollowBar UserData={userData} />
+
+      <Trending />
     </div>
   );
 };

@@ -12,6 +12,8 @@ interface UserInfoState {
   bio?: string;
   profileImage?: string;
   coverImage?: string;
+  followingIds: [];
+  followersIds: [];
 }
 
 export default function ProfileSection() {
@@ -22,6 +24,8 @@ export default function ProfileSection() {
     bio: "",
     profileImage: "",
     coverImage: "",
+    followingIds: [],
+    followersIds: [],
   });
   const [coverurl, setcoverurl] = useState("");
   const { getToken } = useAuth();
@@ -160,11 +164,15 @@ export default function ProfileSection() {
 
           <div className="mt-4 flex space-x-6">
             <div className="flex items-center">
-              <span className="font-bold">113</span>
+              <span className="font-bold">
+                {UserInfo?.followingIds?.length}
+              </span>
               <span className="text-gray-400 ml-1">Following</span>
             </div>
             <div className="flex items-center">
-              <span className="font-bold">25</span>
+              <span className="font-bold">
+                {UserInfo?.followersIds?.length}
+              </span>
               <span className="text-gray-400 ml-1">Followers</span>
             </div>
           </div>

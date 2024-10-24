@@ -23,14 +23,13 @@ model User {
   bio             String?
   email           String?   @unique
   emailVerified   DateTime?
-  image           String?
   coverImage      String?
   profileImage    String?
-  hashedPassword  String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   followingIds    String[]  
   hasNotification Boolean?
+  followersIds    String[]
 
 
   posts           Post[]

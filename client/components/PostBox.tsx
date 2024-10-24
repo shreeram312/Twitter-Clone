@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
+import { ImCross } from "react-icons/im";
 
 interface PostBoxProps {
   userId: string;
@@ -64,13 +65,21 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
 
         <div className="w-full">
           {postImage && (
-            <div>
+            <div className="relative">
+              {/* Image Component */}
               <Image
                 src={postImage}
                 height={450}
                 width={450}
                 alt="Post-image"
-              />{" "}
+                className="object-cover rounded-md"
+              />
+
+              {/* ImCross positioned at the top right of the image */}
+              <ImCross
+                className="absolute top-2 right-2 h-6 w-6 bg-white rounded-full text-red-700 cursor-pointer"
+                onClick={() => setpostImage("")}
+              />
             </div>
           )}
           <textarea

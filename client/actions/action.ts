@@ -145,7 +145,6 @@ export async function ToggleLikePost(postId: string, userId: string) {
       });
       return res;
     } else {
-      // Like the post by adding the userId to likedIds
       const res = await client.post.update({
         where: { id: postId },
         data: {
@@ -188,4 +187,75 @@ export async function GetAllUsers(id: string) {
   console.log("Users fetched, excluding the current user:", filtered);
 
   return filtered;
+}
+export async function FollowingUser(fromUserId: string, toUserId: string) {
+  console.log("Following user:", toUserId, "from user:", fromUserId);
+
+  if (fromUserId === toUserId) {
+    return;
+  }
+
+  const user = await client?.user.findUnique({
+    where: {
+      id: fromUserId,
+    },
+    select: {
+      followingIds: true,
+      followersIds: true,
+    },
+  });
+
+  if (user?.followingIds.includes(toUserId)) {
+    const updatedUser = await client.user.update({
+      where: {
+        id: fromUserId,
+      },
+      data: {
+        followingIds: {
+          set: user.followingIds.filter((id) => id !== toUserId),
+        },
+      },
+    });
+
+    await client.user.update({
+      where: {
+        id: toUserId,
+      },
+      data: {
+        followersIds: {
+          set: user.followersIds.filter((id) => id !== fromUserId),
+        },
+      },
+    });
+
+    return updatedUser;
+  } else {
+    const updatedUser = await client.user.update({
+      where: {
+        id: fromUserId,
+      },
+      data: {
+        followingIds: {
+          set: user
+            ? Array.from(new Set([...user.followingIds, toUserId]))
+            : [],
+        },
+      },
+    });
+
+    await client.user.update({
+      where: {
+        id: toUserId,
+      },
+      data: {
+        followersIds: {
+          set: user
+            ? Array.from(new Set([...user.followersIds, fromUserId]))
+            : [],
+        },
+      },
+    });
+
+    return updatedUser;
+  }
 }

@@ -11,7 +11,9 @@ import { SidebarMenuItems } from "@/libs/sideitems";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
+import Trending from "@/components/Trending";
 import SkeletonCard from "@/libs/SkeletonCard";
+import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
 
 const FollowingSection = () => {
   return (
@@ -27,7 +29,7 @@ export default function Dashboard() {
   const router = useRouter();
   const [userData, setUserData] = useState<any>(null);
   const { getToken } = useAuth();
-  const [loading, setLoading] = useState<boolean>(false); // Initialize loading to true
+  const [loading, setLoading] = useState<boolean>(true); // Initialize loading to true
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,12 +48,11 @@ export default function Dashboard() {
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
-        setLoading(false); // Ensure loading is set to false after fetch
+        setLoading(false);
       }
     };
     fetchUser();
-  }, [getToken]); // Add getToken as a dependency
-
+  }, [getToken]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -114,8 +115,17 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Conditional rendering for loading state */}
-      <FollowBar UserData={userData} />
+      {loading ? (
+        <div className="h-56 p-2  my-4 rounded-md w-80 bg-gray-800">
+          <div className="h-6 w-28 p-2 bg-gray-700 rounded"></div>{" "}
+          <SkeletonFollowBar />
+          <SkeletonFollowBar />
+          <SkeletonFollowBar />
+        </div>
+      ) : (
+        <FollowBar UserData={userData} />
+      )}
+      <Trending />
     </div>
   );
 }
