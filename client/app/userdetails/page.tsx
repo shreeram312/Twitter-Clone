@@ -40,6 +40,7 @@ const ProfileDetails = () => {
         profileImage: user?.imageUrl,
       });
 
+      console.log(res);
       toast.success("User created succesfully");
       router.push("/home");
     } catch (e) {

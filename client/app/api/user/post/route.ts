@@ -1,6 +1,6 @@
 import client from "@/libs/prismadb";
 import { getAuth } from "@clerk/nextjs/server";
-import { error } from "console";
+
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 

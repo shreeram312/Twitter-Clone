@@ -41,10 +41,6 @@ const InteractionCard = ({
     }
   };
 
-  const handleComment = (e: React.MouseEvent) => {
-    console.log("Comment clicked!");
-  };
-
   const handleRetweet = (e: React.MouseEvent) => {
     e.stopPropagation();
     console.log("Retweet clicked!");
@@ -53,7 +49,7 @@ const InteractionCard = ({
   return (
     <div>
       <div className="flex justify-between sm:space-x-24 mt-2 w-full sm:w-[50%]">
-        <div className="flex items-center space-x-2" onClick={handleComment}>
+        <div className="flex items-center space-x-2">
           <BiMessageRounded size={24} />
           <span className="hidden sm:block text-lg">{comments}</span>
         </div>

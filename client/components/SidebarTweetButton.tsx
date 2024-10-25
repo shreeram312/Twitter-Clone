@@ -1,11 +1,5 @@
 "use client";
-
-import { useRouter } from "next/navigation";
-import React, { useCallback } from "react";
-
 const SidebarTweetButton = () => {
-  const router = useRouter();
-
   return (
     <div>
       <button

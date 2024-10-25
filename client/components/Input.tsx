@@ -1,19 +1,6 @@
 import React from "react";
 
-interface InputProps {
-  placeholder?: string;
-  value?: string;
-  disabled?: boolean;
-  type?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-const Input: React.FC<InputProps> = ({
-  placeholder,
-  value,
-  disabled,
-  type,
-  onChange,
-}) => {
+const Input = ({ placeholder, value, disabled, onChange }) => {
   return (
     <div>
       <input

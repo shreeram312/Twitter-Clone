@@ -1,14 +1,16 @@
+import Image from "next/image";
 import React from "react";
-import { FcLike } from "react-icons/fc";
 
 const CommentCard = ({ comment }: any) => {
   return (
     <div className="flex items-start mt-4 px-4 py-2 border-b border-gray-700">
       <div className="flex-shrink-0">
-        <img
+        <Image
           className="w-10 h-10 rounded-full"
           src={comment?.user?.profileImage}
           alt={`${comment?.user?.userName || "Unknown User"}'s profile`}
+          height={200}
+          width={200}
         />
       </div>
 

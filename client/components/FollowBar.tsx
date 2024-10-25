@@ -1,11 +1,8 @@
 import { FollowingUser, GetAllUsers } from "@/actions/action";
 import React, { useEffect, useState } from "react";
 
-const FollowBar = ({ UserData }: any) => {
+const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   const [allUsers, setAllUsers] = useState<any>([]);
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
-    {}
-  );
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -31,13 +28,15 @@ const FollowBar = ({ UserData }: any) => {
   const handleFollow = async (toUserId: string) => {
     await FollowingUser(UserData?.id, toUserId);
 
-    const updatedFollowStatus = {
-      ...followStatus,
-      [toUserId]: !followStatus[toUserId],
-    };
-
-    setFollowStatus(updatedFollowStatus);
-    localStorage.setItem("followStatus", JSON.stringify(updatedFollowStatus));
+    setFollowStatus((prev: any) => {
+      const newStatus = !prev[toUserId];
+      const updatedFollowStatus = {
+        ...prev,
+        [toUserId]: newStatus,
+      };
+      localStorage.setItem("followStatus", JSON.stringify(updatedFollowStatus));
+      return updatedFollowStatus;
+    });
   };
 
   return (

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Twitter } from "lucide-react";
 import { SignInButton } from "@clerk/nextjs";
 

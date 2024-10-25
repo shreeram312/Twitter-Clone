@@ -10,23 +10,20 @@ import { BiHomeAlt } from "react-icons/bi";
 import { FetchParticularPost } from "@/actions/action";
 import { useParams } from "next/navigation";
 import Spinner from "@/components/Spinner";
-import { RiArrowGoBackLine } from "react-icons/ri";
+
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import PostMoreInfo from "../_components/PostMoreInfo";
-import { AnyCnameRecord } from "dns";
-import Trending from "@/components/Trending";
 
-interface PostData {
-  id: string;
-  userId: string;
-  bodyContent: string;
-}
+import Trending from "@/components/Trending";
 
 const PostIdSlug = () => {
   const params = useParams();
   const router = useRouter();
   const [postmore, setPostMore] = useState<any>();
+  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const postId = Array.isArray(params.profileId)
     ? params.profileId[0]
     : params.profileId;
@@ -45,7 +42,7 @@ const PostIdSlug = () => {
     };
 
     getData();
-  }, []);
+  }, [postId]);
 
   const handleBack = useCallback(() => {
     router.back();
@@ -89,7 +86,11 @@ const PostIdSlug = () => {
         {postmore ? <PostMoreInfo postmore={postmore} /> : <Spinner />}
       </div>
 
-      <FollowBar UserData={postmore?.user} />
+      <FollowBar
+        UserData={postmore?.user}
+        followStatus={followStatus}
+        setFollowStatus={setFollowStatus}
+      />
       <div className=" flex  items-center">
         <Trending />
       </div>

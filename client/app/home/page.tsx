@@ -10,16 +10,25 @@ import { useRouter } from "next/navigation";
 import { SidebarMenuItems } from "@/libs/sideitems";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-
 import Trending from "@/components/Trending";
-import SkeletonCard from "@/libs/SkeletonCard";
 import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
+import FeedCard from "@/components/FeedCard";
 
-const FollowingSection = () => {
+const FollowingSection = ({ followingposts }) => {
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold text-white">Following</h2>
-      <p className="mt-2 text-gray-400">Posts from people you follow.</p>
+    <div>
+      {/* {followingposts.map((post, index) => (
+        <FeedCard
+          key={post?.id}
+          postdata={post}
+          comments={post?.comments?.length}
+          likes={post?.likedIds?.length}
+          likedIds={post?.likedIds}
+          postId={post?.id}
+          userId={post?.userId}
+          postImage={post?.postImage}
+        />
+      ))} */}
     </div>
   );
 };
@@ -28,9 +37,15 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
   const router = useRouter();
   const [userData, setUserData] = useState<any>(null);
-  const { getToken } = useAuth();
-  const [loading, setLoading] = useState<boolean>(true); // Initialize loading to true
 
+  const { getToken } = useAuth();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [followingposts, setfollowingposts] = useState<any[]>([]);
+  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  console.log(userData);
   useEffect(() => {
     const fetchUser = async () => {
       const token = await getToken();
@@ -53,6 +68,26 @@ export default function Dashboard() {
     };
     fetchUser();
   }, [getToken]);
+
+  useEffect(() => {
+    try {
+      const followingpost = async () => {
+        const token = await getToken();
+        const res = await axios.get("/api/user/post/following", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data);
+
+        setfollowingposts(res.data);
+      };
+
+      followingpost();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -111,7 +146,7 @@ export default function Dashboard() {
             setLoading={setLoading}
           />
         ) : (
-          <FollowingSection />
+          <FollowingSection followingposts={followingposts} />
         )}
       </div>
 
@@ -123,7 +158,11 @@ export default function Dashboard() {
           <SkeletonFollowBar />
         </div>
       ) : (
-        <FollowBar UserData={userData} />
+        <FollowBar
+          UserData={userData}
+          followStatus={followStatus}
+          setFollowStatus={setFollowStatus}
+        />
       )}
       <Trending />
     </div>

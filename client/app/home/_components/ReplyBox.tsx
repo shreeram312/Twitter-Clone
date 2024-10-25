@@ -20,9 +20,8 @@ const ReplyBox = ({ postmore, commentlist, setcommentlist }: any) => {
         console.error("Failed to fetch comments:", error);
       }
     }
-
     fetchComments();
-  }, [postmore.id]);
+  }, [postmore?.id, setcommentlist]);
 
   async function handleAddComment(
     comment: string,

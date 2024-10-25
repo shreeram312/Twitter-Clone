@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
 import BottomProfile from "./BottomProfile";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 interface UserInfoState {
   id: string;
@@ -30,7 +32,12 @@ export default function ProfileSection() {
   const [coverurl, setcoverurl] = useState("");
   const { getToken } = useAuth();
   const [updateprofileImage, setupdateprofileImage] = useState<string>("");
+  const router = useRouter();
   console.log(UserInfo);
+
+  const handleBack = useCallback(() => {
+    router.back();
+  }, [router]);
 
   useEffect(() => {
     const fetchRes = async () => {
@@ -61,6 +68,7 @@ export default function ProfileSection() {
             userName: UserInfo.userName,
             profileImage: updateprofileImage,
           });
+          console.log(res);
           setUserInfo((prev) => ({
             ...prev,
             profileImage: updateprofileImage,
@@ -92,6 +100,12 @@ export default function ProfileSection() {
 
   return (
     <div className="bg-black text-white min-h-screen p-2">
+      <button
+        onClick={handleBack}
+        className="text-2xl mx-2 my-1 hover:rounded-full p-1  hover:bg-gray-900  "
+      >
+        <IoMdArrowRoundBack />
+      </button>
       <div className="relative w-full h-48 bg-blue-900">
         <CldUploadWidget
           onSuccess={(results: any) => setcoverurl(results?.info?.url)}

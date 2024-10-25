@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import { FaImage, FaSmile, FaMapMarkerAlt } from "react-icons/fa";
-import { BsCardImage, BsEmojiSmile, BsCalendarEvent } from "react-icons/bs";
+import React, { useState, useRef } from "react";
+
+import { BsCardImage } from "react-icons/bs";
 import { IoMdGift } from "react-icons/io";
-import { AiOutlineBars } from "react-icons/ai";
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -86,6 +86,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
             onChange={(e) => {
               const value = e.target.value;
               setPostContent(value);
+
               handleResizeTextarea();
             }}
             placeholder="What is happening?!"

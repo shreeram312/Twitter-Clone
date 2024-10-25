@@ -10,11 +10,15 @@ import { BiHomeAlt } from "react-icons/bi";
 import Trending from "@/components/Trending";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
+import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
 
 const Profile = () => {
   const [userData, setUserData] = useState<any>(null);
   const { getToken } = useAuth();
-  const [loading, setLoading] = useState<boolean>(true); // Initialize loading to true
+  const [loading, setLoading] = useState<boolean>(true);
+  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,6 +42,7 @@ const Profile = () => {
     };
     fetchUser();
   }, [getToken]);
+
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -64,11 +69,25 @@ const Profile = () => {
       </div>
 
       {/* Main content */}
-      <div className="col-span-10 md:col-span-7 mx-4 md:mx-10  border-r-[0.2px] border-l-[0.2px] border-l-slate-700 overflow-y-scroll no-scrollbar border-r-slate-700">
+      <div className="col-span-10 md:col-span-7 mx-4 md:mx-10 border-l-[0.2px] border-r-[0.2px] border-l-slate-700 border-r-slate-700 overflow-y-scroll no-scrollbar">
         <ProfileSection />
       </div>
 
-      <FollowBar UserData={userData} />
+      {loading ? (
+        <div className="h-56 p-2 my-4 rounded-md w-80 bg-gray-800">
+          <div className="h-6 w-28 p-2 bg-gray-700 rounded"></div>
+          <SkeletonFollowBar />
+          <SkeletonFollowBar />
+          <SkeletonFollowBar />
+        </div>
+      ) : (
+        <FollowBar
+          UserData={userData}
+          followStatus={followStatus}
+          setFollowStatus={setFollowStatus}
+          setUserData={setUserData} // Pass setUserData
+        />
+      )}
 
       <Trending />
     </div>

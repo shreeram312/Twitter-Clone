@@ -10,7 +10,6 @@ import {
 } from "@clerk/nextjs";
 
 import { Toaster } from "react-hot-toast";
-import FollowBar from "@/components/FollowBar";
 
 // Fonts setup
 const geistSans = localFont({

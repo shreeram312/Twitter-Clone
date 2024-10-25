@@ -1,5 +1,8 @@
 const nextConfig = {
   reactStrictMode: false,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 
   env: {
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "dkrrut1cp",

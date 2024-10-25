@@ -1,7 +1,5 @@
 "use server";
 import client from "@/libs/prismadb";
-import { revalidatePath } from "next/cache";
-
 export default async function FetchPosts(id: string | "") {
   if (!id) {
     return null;
@@ -181,6 +179,11 @@ export async function GetAllUsers(id: string) {
       id: {
         not: user.id,
       },
+    },
+
+    include: {
+      posts: true,
+      comments: true,
     },
   });
 

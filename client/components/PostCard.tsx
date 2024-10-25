@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
 import InteractionCard from "./InteractionCard";
 
 const PostCard = ({ data }: any) => {

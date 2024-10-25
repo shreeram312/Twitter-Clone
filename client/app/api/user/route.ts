@@ -1,7 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import client from "@/libs/prismadb";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { getAuth } from "@clerk/nextjs/server";
 
 export async function POST(req: Request) {
@@ -73,8 +71,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const { hashedPassword, hasNotification, emailVerified, ...userData } =
-      user;
+    const { ...userData } = user;
 
     return NextResponse.json(userData, { status: 200 });
   } catch (error) {
