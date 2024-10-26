@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ClerkProvider, SignInButton, SignedOut } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
 
 import { Toaster } from "react-hot-toast";
 
@@ -38,6 +43,9 @@ export default function RootLayout({
             <SignedOut>
               <SignInButton />
             </SignedOut>
+            <SignedIn>
+              <SignedOut />
+            </SignedIn>
           </div>
 
           {/* Main content */}

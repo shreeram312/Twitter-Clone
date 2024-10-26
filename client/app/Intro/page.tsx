@@ -24,7 +24,9 @@ export default function Intro() {
           <div className="space-y-4 max-w-xs w-full">
             {/* Sign In Button */}
             <button className="w-full bg-blue-400 text-black font-bold py-2 px-4 rounded-full hover:bg-blue-500 transition duration-200"></button>
-            <SignInButton>Get Started</SignInButton>
+            <SignInButton forceRedirectUrl="/userdetails">
+              Get Started
+            </SignInButton>
             {/* Login Link */}
 
             <a className="block text-center w-full border border-gray-300 text-gray-300 font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition duration-200">
