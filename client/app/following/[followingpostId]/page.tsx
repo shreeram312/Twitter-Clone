@@ -1,5 +1,4 @@
 "use client";
-import FollowBar from "@/components/FollowBar";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import Trending from "@/components/Trending";
@@ -10,7 +9,7 @@ import { BiHomeAlt } from "react-icons/bi";
 import { FaTwitter } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-const page = () => {
+const FollowingPageId = () => {
   const router = useRouter();
   const handleBack = useCallback(() => {
     router.back();
@@ -62,4 +61,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default FollowingPageId;

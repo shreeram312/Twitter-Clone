@@ -4,6 +4,7 @@
     "no-unused-vars": "warn", // Change to warn instead of error
     "@typescript-eslint/no-unused-vars": "warn", // Same for TypeScript
     "@next/next/no-img-element": "warn", // Change to warn for img usage
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/no-unescaped-entities": 0
   }
 }

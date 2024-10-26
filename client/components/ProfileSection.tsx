@@ -79,6 +79,7 @@ export default function ProfileSection() {
       };
       update();
     }
+    // eslint-disable-next-line
   }, [updateprofileImage]);
 
   useEffect(() => {
@@ -96,6 +97,7 @@ export default function ProfileSection() {
       };
       updateCoverImage();
     }
+    //   eslint-disable-next-line
   }, [coverurl, UserInfo.userName]);
 
   return (

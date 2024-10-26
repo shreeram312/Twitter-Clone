@@ -8,6 +8,7 @@ const FollowingFeedCard = ({ followingposts, userId }) => {
   const router = useRouter();
   const handleroute = useCallback(() => {
     router.push(`/following/${followingposts?.id}`);
+    // eslint-disable-next-line
   }, [router]);
 
   return (

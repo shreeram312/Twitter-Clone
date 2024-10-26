@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Trending = () => {
@@ -7,7 +8,9 @@ const Trending = () => {
         <h2 className="font-bold text-lg mb-4">What's happening</h2>
 
         <div className="flex space-x-4 mb-4">
-          <img
+          <Image
+            height={200}
+            width={200}
             src="https://via.placeholder.com/50"
             alt="Event Image"
             className="w-12 h-12 rounded-lg"

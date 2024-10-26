@@ -11,7 +11,8 @@ import { ImCross } from "react-icons/im";
 
 interface PostBoxProps {
   userId: string;
-  addPost: (newPost: any) => void;
+  addPost: (newPost: any) => void; // eslint-disable-line @typescript-eslint/no-unused-vars
+
   imageUrl: string;
 }
 

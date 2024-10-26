@@ -12,10 +12,9 @@ import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import Trending from "@/components/Trending";
 import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
-import FeedCard from "@/components/FeedCard";
 import FollowingFeedCard from "@/components/FollowingFeedCard";
 
-export default function Dashboard() {
+function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
   const router = useRouter();
   const [userData, setUserData] = useState<any>(null);
@@ -48,7 +47,9 @@ export default function Dashboard() {
         setLoading(false);
       }
     };
+
     fetchUser();
+    //  eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ export default function Dashboard() {
     } catch (e) {
       console.log(e);
     }
+    //  eslint-disable-next-line
   }, [followStatus]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
@@ -157,7 +159,7 @@ export default function Dashboard() {
 const FollowingSection = ({ followingposts, userId }) => {
   return (
     <div>
-      {followingposts.map((data: any, key: any) => (
+      {followingposts.map((data: any) => (
         <FollowingFeedCard
           key={data?.id}
           followingposts={data}
@@ -167,3 +169,5 @@ const FollowingSection = ({ followingposts, userId }) => {
     </div>
   );
 };
+
+export default Dashboard;

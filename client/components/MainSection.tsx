@@ -33,6 +33,7 @@ const MainSection: React.FC<MainSectionProps> = ({
 
   const handleback = useCallback(() => {
     router.back();
+    //  eslint-disable-next-line
   }, [router]);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const MainSection: React.FC<MainSectionProps> = ({
     };
 
     fetchPosts();
+    //  eslint-disable-next-line
   }, []);
 
   console.log(postdata);
@@ -73,6 +75,7 @@ const MainSection: React.FC<MainSectionProps> = ({
       setLoading(false);
     };
     fetchUser();
+    //  eslint-disable-next-line
   }, []);
 
   const addPost = (newPost: any) => {

@@ -1,4 +1,5 @@
 import { FollowingUser, GetAllUsers } from "@/actions/action";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
@@ -23,6 +24,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     };
 
     fetchUsers();
+    //  eslint-disable-next-line
   }, [UserData?.id]);
 
   const handleFollow = async (toUserId: string) => {
@@ -50,7 +52,9 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
               className="my-2 flex items-center justify-between bg-gray-900 p-2 rounded-md"
             >
               <div className="flex items-center space-x-4">
-                <img
+                <Image
+                  height={200}
+                  width={200}
                   src={user?.profileImage}
                   alt={`${user?.userName}'s Profile`}
                   className="w-12 h-12 rounded-full object-cover"
