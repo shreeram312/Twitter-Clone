@@ -31,9 +31,6 @@ export default function Intro() {
               </button>
             </SignInButton>
             {/* Login Link */}
-            <a className="block text-center w-full border border-gray-500 text-gray-300 font-bold py-2 rounded-full hover:bg-gray-800 transition duration-200">
-              Log in
-            </a>
           </div>
         </div>
       </div>
