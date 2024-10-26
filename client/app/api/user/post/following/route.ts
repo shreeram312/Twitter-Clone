@@ -34,6 +34,7 @@ export async function GET(req: NextRequest) {
     },
     include: {
       user: true,
+      comments: true,
     },
   });
 

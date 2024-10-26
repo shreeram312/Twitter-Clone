@@ -13,25 +13,7 @@ import axios from "axios";
 import Trending from "@/components/Trending";
 import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
 import FeedCard from "@/components/FeedCard";
-
-const FollowingSection = ({ followingposts }) => {
-  return (
-    <div>
-      {/* {followingposts.map((post, index) => (
-        <FeedCard
-          key={post?.id}
-          postdata={post}
-          comments={post?.comments?.length}
-          likes={post?.likedIds?.length}
-          likedIds={post?.likedIds}
-          postId={post?.id}
-          userId={post?.userId}
-          postImage={post?.postImage}
-        />
-      ))} */}
-    </div>
-  );
-};
+import FollowingFeedCard from "@/components/FollowingFeedCard";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
@@ -67,7 +49,7 @@ export default function Dashboard() {
       }
     };
     fetchUser();
-  }, [getToken]);
+  }, []);
 
   useEffect(() => {
     try {
@@ -87,7 +69,7 @@ export default function Dashboard() {
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [followStatus]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4">
@@ -146,7 +128,10 @@ export default function Dashboard() {
             setLoading={setLoading}
           />
         ) : (
-          <FollowingSection followingposts={followingposts} />
+          <FollowingSection
+            followingposts={followingposts}
+            userId={userData?.id}
+          />
         )}
       </div>
 
@@ -168,3 +153,17 @@ export default function Dashboard() {
     </div>
   );
 }
+
+const FollowingSection = ({ followingposts, userId }) => {
+  return (
+    <div>
+      {followingposts.map((data: any, key: any) => (
+        <FollowingFeedCard
+          key={data?.id}
+          followingposts={data}
+          userId={userId}
+        />
+      ))}
+    </div>
+  );
+};
