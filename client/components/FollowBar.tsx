@@ -16,7 +16,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
         localStorage.setItem("alluser", JSON.stringify(res));
         setAllUsers(res.filter((user) => user.id !== UserData?.id));
       }
-
+      localStorage.removeItem("alluser");
       const storedFollowStatus = localStorage.getItem("followStatus");
       if (storedFollowStatus) {
         setFollowStatus(JSON.parse(storedFollowStatus));
