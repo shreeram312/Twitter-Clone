@@ -48,7 +48,6 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   }, [followStatus]);
 
   const handleFollow = async (toUserId: string) => {
-    toast.success("Followed successfully");
     const res = await FollowingUser(UserData?.id, toUserId);
     toast.success("Followed successfully");
     if (res?.followingIds) {
