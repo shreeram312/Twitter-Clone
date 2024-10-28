@@ -102,6 +102,7 @@ const FollowingPageId = () => {
           </div>
           <PostMoreInfoFollowing postmore={postmore} userinfo={userinfo} />
         </div>
+        {/* <FollowBar /> */}
 
         <div className=" flex mx-24 items-center">
           <Trending />

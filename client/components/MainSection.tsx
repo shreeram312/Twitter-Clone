@@ -82,6 +82,10 @@ const MainSection: React.FC<MainSectionProps> = ({
     setpostdata((prevPosts) => [newPost, ...prevPosts]);
   };
 
+  const handleDeletePost = (postId) => {
+    setpostdata((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  };
+
   return (
     <div>
       <div className="flex flex-row items-center">
@@ -115,6 +119,7 @@ const MainSection: React.FC<MainSectionProps> = ({
                 postId={post?.id}
                 userId={post?.userId}
                 postImage={post?.postImage}
+                onDelete={handleDeletePost}
               />
             );
           })}

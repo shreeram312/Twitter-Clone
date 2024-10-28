@@ -74,8 +74,8 @@ function Dashboard() {
   }, [followStatus]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
-      <div className="col-span-2 py-4">
-        <div className="hover:bg-gray-800 hover:rounded-full h-fit w-fit p-1 cursor-pointer transition-all">
+      <div className="col-span-2 py-4  ">
+        <div className="hover:bg-gray-800  hover:rounded-full h-fit w-fit p-1 cursor-pointer transition-all">
           <FaTwitter size={40} />
         </div>
         <div>

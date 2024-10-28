@@ -1,6 +1,7 @@
 import { FollowingUser, GetAllUsers } from "@/actions/action";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   const [allUsers, setAllUsers] = useState<any>([]);
@@ -8,43 +9,72 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   useEffect(() => {
     const fetchUsers = async () => {
       const cachedUsers = localStorage.getItem("alluser");
-      if (cachedUsers) {
-        const users = JSON.parse(cachedUsers);
-        setAllUsers(users.filter((user: any) => user.id !== UserData?.id));
-      } else {
+
+      if (!cachedUsers) {
         const res = await GetAllUsers(UserData?.id);
         localStorage.setItem("alluser", JSON.stringify(res));
         setAllUsers(res.filter((user: any) => user.id !== UserData?.id));
+      } else {
+        const users = JSON.parse(cachedUsers);
+        setAllUsers(users.filter((user: any) => user.id !== UserData?.id));
       }
-      const storedFollowStatus = localStorage.getItem("followStatus");
-      if (storedFollowStatus) {
-        setFollowStatus(JSON.parse(storedFollowStatus));
+
+      if (UserData?.followingIds) {
+        const initialFollowStatus = UserData.followingIds.reduce(
+          (acc: any, id: string) => {
+            acc[id] = true;
+            return acc;
+          },
+          {}
+        );
+        setFollowStatus(initialFollowStatus);
+        localStorage.setItem(
+          "followStatus",
+          JSON.stringify(initialFollowStatus)
+        );
+      } else {
+        const storedFollowStatus = localStorage.getItem("followStatus");
+        if (storedFollowStatus) {
+          setFollowStatus(JSON.parse(storedFollowStatus));
+        }
       }
     };
 
     fetchUsers();
-    // eslint-disable-next-line
   }, [UserData?.id]);
 
   useEffect(() => {
-    // Update localStorage whenever followStatus changes
     localStorage.setItem("followStatus", JSON.stringify(followStatus));
   }, [followStatus]);
 
   const handleFollow = async (toUserId: string) => {
-    await FollowingUser(UserData?.id, toUserId);
+    toast.success("Followed successfully");
+    const res = await FollowingUser(UserData?.id, toUserId);
+    toast.success("Followed successfully");
+    if (res?.followingIds) {
+      const newFollowStatus = res.followingIds.reduce(
+        (acc: any, id: string) => {
+          acc[id] = true;
+          return acc;
+        },
+        {}
+      );
 
-    setFollowStatus((prev: any) => {
-      const newStatus = !prev[toUserId];
-      return {
-        ...prev,
-        [toUserId]: newStatus,
-      };
-    });
+      setFollowStatus(newFollowStatus);
+      localStorage.setItem("followStatus", JSON.stringify(newFollowStatus));
+    }
+
+    localStorage.removeItem("alluser");
+    setAllUsers((prevUsers: any) =>
+      prevUsers.map((user: any) => ({
+        ...user,
+        isFollowing: res?.followingIds.includes(user.id),
+      }))
+    );
   };
 
   return (
-    <div className="flex flex-col gap-10 ">
+    <div className="flex flex-col gap-10">
       <div className="w-80 my-6 outline outline-offset- outline-1 outline-gray-600 rounded-lg">
         <div className="bg-black text-white p-4 overflow-auto">
           <p className="text-semibold mx-2">Whom to Follow</p>

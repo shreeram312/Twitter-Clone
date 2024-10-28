@@ -2,6 +2,10 @@ import React, { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InteractionCard from "./InteractionCard";
+import { MdDelete } from "react-icons/md";
+import { RiDeleteBin4Fill } from "react-icons/ri";
+import { DeletePost } from "@/actions/action";
+import toast from "react-hot-toast";
 
 const FeedCard = ({
   postdata,
@@ -9,6 +13,7 @@ const FeedCard = ({
   likes,
   postId,
   userId,
+  onDelete,
   postImage,
 }: any) => {
   const router = useRouter();
@@ -20,6 +25,16 @@ const FeedCard = ({
     [router]
   );
 
+  async function handleDelete(e: any, userId, postId) {
+    e.stopPropagation();
+
+    const res = await DeletePost(userId, postId);
+    console.log(res);
+    if (res) {
+      onDelete(postId);
+      toast.success("Post Deleted Succesfully");
+    }
+  }
   return (
     <div
       onClick={() => handleChangeRoute(postdata?.id)}
@@ -38,8 +53,13 @@ const FeedCard = ({
       <div className="col-span-10 sm:col-span-11 mx-2">
         <h5 className="font-bold text-cyan-200 text-sm">
           {postdata.user.userName}
+
+          <RiDeleteBin4Fill
+            style={{ height: "25px", width: "25px" }}
+            className="float-end"
+            onClick={(e) => handleDelete(e, userId, postId)}
+          />
         </h5>
-        {/* Add proper text wrapping and overflow control here */}
 
         <p className="text-sm sm:text-base break-words overflow-hidden">
           {postdata.bodyContent}

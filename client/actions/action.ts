@@ -262,3 +262,26 @@ export async function FollowingUser(fromUserId: string, toUserId: string) {
     return updatedUser;
   }
 }
+
+export async function DeletePost(userId: string, postId: string) {
+  if (!userId || !postId) {
+    return null;
+  }
+
+  const user = client.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  const postdelete = client.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+  return postdelete;
+}
