@@ -54,7 +54,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
   };
 
   return (
-    <div className="w-full bg-black text-white p-4 rounded-lg shadow-md border border-gray-700">
+    <div className="w-full  bg-black text-white p-4 rounded-lg shadow-md border border-gray-700">
       <div className="flex items-start">
         <Image
           src={imageUrl}

@@ -14,9 +14,8 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
       } else {
         const res = await GetAllUsers(UserData?.id);
         localStorage.setItem("alluser", JSON.stringify(res));
-        setAllUsers(res.filter((user) => user.id !== UserData?.id));
+        setAllUsers(res.filter((user: any) => user.id !== UserData?.id));
       }
-      localStorage.removeItem("alluser");
       const storedFollowStatus = localStorage.getItem("followStatus");
       if (storedFollowStatus) {
         setFollowStatus(JSON.parse(storedFollowStatus));
@@ -24,27 +23,30 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     };
 
     fetchUsers();
-    //  eslint-disable-next-line
+    // eslint-disable-next-line
   }, [UserData?.id]);
+
+  useEffect(() => {
+    // Update localStorage whenever followStatus changes
+    localStorage.setItem("followStatus", JSON.stringify(followStatus));
+  }, [followStatus]);
 
   const handleFollow = async (toUserId: string) => {
     await FollowingUser(UserData?.id, toUserId);
 
     setFollowStatus((prev: any) => {
       const newStatus = !prev[toUserId];
-      const updatedFollowStatus = {
+      return {
         ...prev,
         [toUserId]: newStatus,
       };
-      localStorage.setItem("followStatus", JSON.stringify(updatedFollowStatus));
-      return updatedFollowStatus;
     });
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 ">
       <div className="w-80 my-6 outline outline-offset- outline-1 outline-gray-600 rounded-lg">
-        <div className="bg-black text-white p-4">
+        <div className="bg-black text-white p-4 overflow-auto">
           <p className="text-semibold mx-2">Whom to Follow</p>
           {allUsers.map((user: any, index: number) => (
             <div

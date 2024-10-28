@@ -1,19 +1,67 @@
 "use client";
+import { FetchParticularPost } from "@/actions/action";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import Trending from "@/components/Trending";
 import { SidebarMenuItems } from "@/libs/sideitems";
-import { useRouter } from "next/navigation";
-import React, { useCallback } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
 import { BiHomeAlt } from "react-icons/bi";
 import { FaTwitter } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import PostMoreInfoFollowing from "./_components/PostMoreInfoFollowing";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
 
 const FollowingPageId = () => {
   const router = useRouter();
+  const params = useParams();
+  const { getToken } = useAuth();
+
+  const [postmore, setPostMore] = useState<any>([]);
+  const [userinfo, setuserinfo] = useState<any>({});
+  console.log(params.followingpostId);
+  const postId = Array.isArray(params.followingpostId)
+    ? params.followingpostId[0]
+    : params.followingpostId;
+
   const handleBack = useCallback(() => {
     router.back();
   }, [router]);
+
+  console.log(postmore);
+  console.log("sdjns");
+
+  useEffect(() => {
+    const func = async () => {
+      const token = getToken();
+      const res1 = await axios.get("/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setuserinfo(res1.data);
+    };
+    func();
+  }, []);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await FetchParticularPost(postId);
+        console.log(res);
+        console.log("jdfnkld");
+        setPostMore(res);
+      } catch (error) {
+        console.error("Error fetching post:", error);
+      }
+    };
+
+    getData();
+    //  eslint-disable-next-line
+  }, [postId]);
+
   return (
     <div>
       {" "}
@@ -49,8 +97,10 @@ const FollowingPageId = () => {
             >
               <IoMdArrowRoundBack />
             </button>
+
             <p className="my-4 mx-2 text-2xl ">Post</p>
           </div>
+          <PostMoreInfoFollowing postmore={postmore} userinfo={userinfo} />
         </div>
 
         <div className=" flex mx-24 items-center">

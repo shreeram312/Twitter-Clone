@@ -31,7 +31,7 @@ const nextConfig = {
         pathname: "**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "via.placeholder.com",
         pathname: "**",
       },

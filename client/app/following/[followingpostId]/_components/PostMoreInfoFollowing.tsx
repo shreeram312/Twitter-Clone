@@ -1,19 +1,21 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import ReplyBox from "./ReplyBox";
+
 import { FcLike } from "react-icons/fc";
 import { BiMessageRounded, BiUpload } from "react-icons/bi";
 import { FaRetweet } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { ToggleLikePost } from "@/actions/action";
 
-const PostMoreInfo = ({ postmore }: any) => {
+import ReplyBoxFollowing from "./ReplyBoxFollowing";
+
+const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
   const [commentlist, setcommentlist] = useState<any[]>([]);
   const [isliked, setisliked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(
     postmore?.likedIds?.length
   );
-  console.log(postmore);
+  console.log(postmore?.likedIds?.length);
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
     "en-IN",
@@ -108,14 +110,15 @@ const PostMoreInfo = ({ postmore }: any) => {
       </div>
 
       <div className="border-t border-gray-600 pt-3 mt-3">
-        <ReplyBox
+        <ReplyBoxFollowing
           postmore={postmore}
           commentlist={commentlist}
           setcommentlist={setcommentlist}
+          userinfo={userinfo}
         />
       </div>
     </div>
   );
 };
 
-export default PostMoreInfo;
+export default PostMoreInfoFollowing;

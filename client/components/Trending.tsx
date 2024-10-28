@@ -4,7 +4,7 @@ import React from "react";
 const Trending = () => {
   return (
     <div>
-      <div className="bg-black w-80 p-4 -mx-24 mt-64 rounded-lg outline outline-offset-1 outline-1 outline-gray-600">
+      <div className="bg-black w-80 p-4  -mx-24 mt-64 rounded-lg outline outline-offset-1 outline-1 outline-gray-600">
         <h2 className="font-bold text-lg mb-4">What's happening</h2>
 
         <div className="flex space-x-4 mb-4">
