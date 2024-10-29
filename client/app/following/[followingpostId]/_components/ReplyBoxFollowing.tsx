@@ -3,12 +3,14 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import CommentCardFollowing from "./CommentCardFollowing";
+import { userInfo } from "os";
 
 const ReplyBoxFollowing = ({
   postmore,
   commentlist,
   setcommentlist,
-  userId,
+
+  userinfo,
 }: any) => {
   const [comment, setcomment] = useState<string>("");
 
@@ -64,7 +66,7 @@ const ReplyBoxFollowing = ({
         <Image
           height={50}
           width={50}
-          src={postmore?.user?.profileImage}
+          src={userinfo?.profileImage}
           alt="user avatar"
           className="rounded-full w-10 h-10 mr-3"
         />
@@ -85,7 +87,9 @@ const ReplyBoxFollowing = ({
 
           <div className="flex justify-end">
             <button
-              onClick={() => handleAddComment(comment, userId, postmore.id)}
+              onClick={() =>
+                handleAddComment(comment, userinfo.id, postmore.id)
+              }
               className="bg-blue-600 text-white py-1 px-4 rounded-full"
             >
               Reply

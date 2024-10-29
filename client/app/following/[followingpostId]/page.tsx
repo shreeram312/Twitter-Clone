@@ -35,9 +35,10 @@ const FollowingPageId = () => {
   useEffect(() => {
     const func = async () => {
       const token = getToken();
+      console.log(token, "edl");
       const res1 = await axios.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 

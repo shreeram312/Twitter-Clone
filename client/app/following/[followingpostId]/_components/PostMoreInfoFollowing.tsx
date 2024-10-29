@@ -12,10 +12,7 @@ import ReplyBoxFollowing from "./ReplyBoxFollowing";
 const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
   const [commentlist, setcommentlist] = useState<any[]>([]);
   const [isliked, setisliked] = useState<boolean>(false);
-  const [likeCount, setLikeCount] = useState<number>(
-    postmore?.likedIds?.length
-  );
-  console.log(postmore?.likedIds?.length);
+  const [likeCount, setLikeCount] = useState<any>(0);
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
     "en-IN",
@@ -28,9 +25,11 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
   );
 
   useEffect(() => {
-    const userId = postmore?.user?.id;
+    const userId = userinfo?.id;
     const isPostLiked = postmore?.likedIds?.includes(userId);
     setisliked(isPostLiked);
+
+    setLikeCount(postmore?.likedIds?.length || 0);
   }, [postmore]);
 
   const handleLike = async (postId: string, userId: string) => {
@@ -40,15 +39,17 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
 
       if (isliked) {
         setisliked(false);
-        setLikeCount((prevCount) => prevCount - 1);
+        setLikeCount((prevCount: any) => Number(prevCount - 1));
       } else {
         setisliked(true);
-        setLikeCount((prevCount) => prevCount + 1);
+        setLikeCount((prevCount: any) => Number(prevCount + 1));
       }
     } catch (error) {
       console.error("Error toggling like:", error);
     }
   };
+  console.log("dklkd;");
+  console.log(userinfo);
 
   return (
     <div className="max-w-xl mx-auto p-4 border-b border-gray-700 text-white space-y-4">
@@ -92,12 +93,12 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
 
         <div className="flex items-center space-x-1 cursor-pointer hover:text-blue-500 my-4">
           <FaRetweet size={24} />
-          <span>{likeCount}</span>
+          <span></span>
         </div>
 
         <div
           className="flex items-center space-x-1 cursor-pointer hover:text-blue-500 my-4"
-          onClick={() => handleLike(postmore.id, postmore.user.id)}
+          onClick={() => handleLike(postmore?.id, userinfo.id)}
         >
           {isliked ? <FcLike size={24} /> : <FaRegHeart size={24} />}
           <span>{likeCount}</span>
@@ -105,7 +106,7 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
 
         <div className="flex items-center space-x-1 cursor-pointer hover:text-blue-500 my-4">
           <BiUpload size={24} />
-          <span>{likeCount}</span>
+          <span>0</span>
         </div>
       </div>
 

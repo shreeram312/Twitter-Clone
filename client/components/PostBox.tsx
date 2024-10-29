@@ -56,13 +56,21 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
   return (
     <div className="w-full  bg-black text-white p-4 rounded-lg shadow-md border border-gray-700">
       <div className="flex items-start">
-        <Image
-          src={imageUrl}
-          width={50}
-          height={50}
-          alt="Profile"
-          className="rounded-full w-10 h-10 mr-3"
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            width={50}
+            height={50}
+            alt="Profile"
+            className="rounded-full w-10 h-10 mr-3"
+          />
+        ) : (
+          <div>
+            <div className="col-span-2 sm:col-span-1">
+              <div className="rounded-full bg-gray-700 h-12 w-12"></div>
+            </div>
+          </div>
+        )}
 
         <div className="w-full">
           {postImage && (

@@ -11,13 +11,21 @@ const PostCard = ({ data }: any) => {
     <div className="overflow-hidden break-words">
       <div className="mt-6 p-4 border border-gray-700 rounded-lg ">
         <div className="mt-2 flex items-center ">
-          <Image
-            src={data.user.profileImage}
-            width={40}
-            height={40}
-            alt="profileimage"
-            className="rounded-full h-12 w-12"
-          />
+          {data.user.profileImage ? (
+            <div>
+              <Image
+                src={data.user.profileImage}
+                width={40}
+                height={40}
+                alt="profile image"
+                className="rounded-full h-12 w-12"
+              />
+            </div>
+          ) : (
+            <div className="col-span-2 sm:col-span-1">
+              <div className="rounded-full bg-gray-700 h-12 w-12"></div>
+            </div>
+          )}
 
           <div className="ml-2">
             <span className="font-bold text-lg">{data.user.name}</span>

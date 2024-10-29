@@ -75,7 +75,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   return (
     <div className="flex flex-col gap-10">
       <div className="w-80 my-6 outline outline-offset- outline-1 outline-gray-600 rounded-lg">
-        <div className="bg-black text-white p-4 overflow-auto">
+        <div className="bg-black text-white p-4 overflow-y-scroll no-scrollbar">
           <p className="text-semibold mx-2">Whom to Follow</p>
           {allUsers.map((user: any, index: number) => (
             <div
