@@ -73,12 +73,12 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 cursor-pointer">
       <div className="w-80 my-6 outline outline-offset-1 outline-1 outline-gray-600 rounded-lg">
         <div className="bg-black text-white p-4 overflow-hidden">
           <p className="text-semibold mx-2">Whom to Follow</p>
           <div
-            className="max-h-40 overflow-y-auto no-scrollbar"
+            className="max-h-40 cursor-pointer overflow-y-auto no-scrollbar"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
