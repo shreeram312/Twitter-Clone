@@ -64,6 +64,8 @@ export default function ProfileSection() {
     // return () => {
     //   clearInterval(id);
     // };
+
+    fetchRes();
   }, []);
 
   useEffect(() => {
