@@ -43,8 +43,8 @@ const ReplyBoxFollowing = ({
       const updatedComment = {
         ...newComment,
         user: {
-          userName: postmore.user.userName,
-          profileImage: postmore.user.profileImage,
+          userName: userinfo.userName,
+          profileImage: userinfo.profileImage,
         },
       };
 
