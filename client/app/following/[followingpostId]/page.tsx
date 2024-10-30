@@ -105,7 +105,7 @@ const FollowingPageId = () => {
         </div>
         {/* <FollowBar /> */}
 
-        <div className=" flex mx-24 items-center">
+        <div className=" flex mx-24 ">
           <Trending />
         </div>
       </div>
