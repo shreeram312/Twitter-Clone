@@ -14,8 +14,8 @@ interface UserInfoState {
   bio?: string;
   profileImage?: string;
   coverImage?: string;
-  followingIds: [];
-  followersIds: [];
+  followingIds: string[];
+  followersIds: string[];
 }
 
 export default function ProfileSection() {
@@ -33,6 +33,7 @@ export default function ProfileSection() {
   const { getToken } = useAuth();
   const [updateprofileImage, setupdateprofileImage] = useState<string>("");
   const router = useRouter();
+
   console.log(UserInfo);
 
   const handleBack = useCallback(() => {
@@ -57,8 +58,13 @@ export default function ProfileSection() {
         console.error("Error fetching user info:", error);
       }
     };
-    fetchRes();
-  }, [updateprofileImage]);
+
+    //This can be solution but it is polling  and i dont like that solution to solve this problem maybe Websoclet and sse can solve  🥲🥲
+    // const id = setInterval(() => fetchRes(), 2000);
+    // return () => {
+    //   clearInterval(id);
+    // };
+  }, []);
 
   useEffect(() => {
     if (updateprofileImage) {

@@ -6,7 +6,11 @@ const page = () => {
   if (userId) {
     redirect("/home");
   } else {
-    redirect("/Intro");
+    if (!userId) {
+      redirect("/Intro");
+    } else {
+      redirect("/userdetails");
+    }
   }
 };
 
