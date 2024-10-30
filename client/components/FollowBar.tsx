@@ -78,7 +78,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
         <div className="bg-black text-white p-4 overflow-hidden">
           <p className="text-semibold mx-2">Whom to Follow</p>
           <div
-            className="max-h-60 overflow-y-auto no-scrollbar"
+            className="max-h-40 overflow-y-auto no-scrollbar"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
