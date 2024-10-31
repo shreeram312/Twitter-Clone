@@ -73,21 +73,21 @@ const Profile = () => {
         <ProfileSection />
       </div>
 
-      {loading ? (
+      {/* {loading ? (
         <div className="h-56 p-2 my-4 rounded-md w-80 bg-gray-800">
           <div className="h-6 w-28 p-2 bg-gray-700 rounded"></div>
           <SkeletonFollowBar />
           <SkeletonFollowBar />
           <SkeletonFollowBar />
         </div>
-      ) : (
-        <FollowBar
-          UserData={userData}
-          followStatus={followStatus}
-          setFollowStatus={setFollowStatus}
-          setUserData={setUserData} // Pass setUserData
-        />
-      )}
+      ) : ( */}
+      <FollowBar
+        UserData={userData}
+        followStatus={followStatus}
+        setFollowStatus={setFollowStatus}
+        setUserData={setUserData} // Pass setUserData
+      />
+      {/* )} */}
 
       <Trending />
     </div>

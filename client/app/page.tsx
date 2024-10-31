@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 const page = () => {
   const { userId } = auth();
+
   if (userId) {
     redirect("/home");
   } else {

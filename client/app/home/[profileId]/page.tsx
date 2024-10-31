@@ -91,7 +91,7 @@ const PostIdSlug = () => {
         followStatus={followStatus}
         setFollowStatus={setFollowStatus}
       />
-      <div className=" flex  items-center">
+      <div className=" ">
         <Trending />
       </div>
     </div>

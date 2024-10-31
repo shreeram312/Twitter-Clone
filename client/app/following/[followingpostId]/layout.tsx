@@ -1,5 +1,3 @@
-import FollowBar from "@/components/FollowBar";
-import Trending from "@/components/Trending";
 import React from "react";
 
 const Rootlayout = ({ children }) => {

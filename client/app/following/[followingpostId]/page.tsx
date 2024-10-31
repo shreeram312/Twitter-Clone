@@ -12,6 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import PostMoreInfoFollowing from "./_components/PostMoreInfoFollowing";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
+import FollowBar from "@/components/FollowBar";
 
 const FollowingPageId = () => {
   const router = useRouter();
@@ -103,7 +104,6 @@ const FollowingPageId = () => {
           </div>
           <PostMoreInfoFollowing postmore={postmore} userinfo={userinfo} />
         </div>
-        {/* <FollowBar /> */}
 
         <div className=" flex mx-24 ">
           <Trending />

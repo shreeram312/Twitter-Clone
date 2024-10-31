@@ -117,5 +117,4 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     </div>
   );
 };
-
 export default FollowBar;
