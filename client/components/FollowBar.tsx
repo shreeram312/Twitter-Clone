@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   const [allUsers, setAllUsers] = useState<any>([]);
+  console.log(UserData?.id);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -41,7 +42,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     };
 
     fetchUsers();
-  }, []);
+  }, [UserData?.id]);
 
   useEffect(() => {
     localStorage.setItem("followStatus", JSON.stringify(followStatus));
@@ -49,7 +50,12 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
 
   const handleFollow = async (toUserId: string) => {
     const res = await FollowingUser(UserData?.id, toUserId);
-    toast.success("Followed successfully");
+    toast.success(
+      followStatus && followStatus[toUserId]
+        ? "Unfollowed Successfully"
+        : "Followed Successfully"
+    );
+
     if (res?.followingIds) {
       const newFollowStatus = res.followingIds.reduce(
         (acc: any, id: string) => {
