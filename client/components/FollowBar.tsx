@@ -41,7 +41,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     };
 
     fetchUsers();
-  }, [UserData?.id]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("followStatus", JSON.stringify(followStatus));
