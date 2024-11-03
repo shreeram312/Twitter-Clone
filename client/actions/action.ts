@@ -195,7 +195,7 @@ export async function FollowingUser(fromUserId: string, toUserId: string) {
   console.log("Following user:", toUserId, "from user:", fromUserId);
 
   if (fromUserId === toUserId) {
-    return null;
+    return [];
   }
 
   const user = await client?.user.findUnique({
