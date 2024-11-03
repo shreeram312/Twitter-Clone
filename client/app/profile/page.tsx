@@ -10,7 +10,6 @@ import { BiHomeAlt } from "react-icons/bi";
 import Trending from "@/components/Trending";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
 
 const Profile = () => {
   const [userData, setUserData] = useState<any>(null);
@@ -41,7 +40,7 @@ const Profile = () => {
       }
     };
     fetchUser();
-  }, [getToken]);
+  }, [followStatus]);
 
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">

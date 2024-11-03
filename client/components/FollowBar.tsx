@@ -70,6 +70,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     }
 
     localStorage.removeItem("alluser");
+
     setAllUsers((prevUsers: any) =>
       prevUsers.map((user: any) => ({
         ...user,
