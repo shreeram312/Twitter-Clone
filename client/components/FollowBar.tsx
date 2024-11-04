@@ -56,7 +56,9 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
         : "Followed Successfully"
     );
 
+    //@ts-ignore
     if (res?.followingIds) {
+      //@ts-ignore
       const newFollowStatus = res.followingIds.reduce(
         (acc: any, id: string) => {
           acc[id] = true;
@@ -69,11 +71,12 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
       localStorage.setItem("followStatus", JSON.stringify(newFollowStatus));
     }
 
-    localStorage.removeItem("alluser");
-
+    // localStorage.removeItem("alluser");
+    //
     setAllUsers((prevUsers: any) =>
       prevUsers.map((user: any) => ({
         ...user,
+        //@ts-ignore
         isFollowing: res?.followingIds.includes(user.id),
       }))
     );
