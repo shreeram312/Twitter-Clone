@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
-  const [allUsers, setAllUsers] = useState<any>([]);
+  const [allUsers, setAllUsers] = useState<any[]>([]);
   console.log(UserData?.id);
 
   useEffect(() => {
