@@ -55,9 +55,10 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
         ? "Unfollowed Successfully"
         : "Followed Successfully"
     );
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     if (res?.followingIds) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       const newFollowStatus = res.followingIds.reduce(
         (acc: any, id: string) => {
@@ -76,6 +77,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     setAllUsers((prevUsers: any) =>
       prevUsers.map((user: any) => ({
         ...user,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         isFollowing: res?.followingIds.includes(user.id),
       }))
