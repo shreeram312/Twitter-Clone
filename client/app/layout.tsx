@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import { AppWrapper } from "../context/index";
 
 import { Toaster } from "react-hot-toast";
 
@@ -44,7 +45,9 @@ export default function RootLayout({
           </div>
 
           {/* Main content */}
-          <main>{children}</main>
+          <AppWrapper>
+            <main>{children}</main>
+          </AppWrapper>
 
           <Toaster />
         </body>

@@ -13,20 +13,19 @@ import axios from "axios";
 import Trending from "@/components/Trending";
 import SkeletonFollowBar from "@/libs/SkeletonFollowbar";
 import FollowingFeedCard from "@/components/FollowingFeedCard";
+import { useAppContext } from "@/context";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
   const router = useRouter();
-  const [userData, setUserData] = useState<any>(null);
 
   const { getToken } = useAuth();
   const [loading, setLoading] = useState<boolean>(true);
   const [followingposts, setfollowingposts] = useState<any[]>([]);
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
-    {}
-  );
 
-  console.log(userData);
+  const { userData, setUserData, followStatus, setFollowStatus } =
+    useAppContext();
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = await getToken();

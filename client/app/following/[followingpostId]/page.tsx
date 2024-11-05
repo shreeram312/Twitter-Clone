@@ -13,6 +13,8 @@ import PostMoreInfoFollowing from "./_components/PostMoreInfoFollowing";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import SkeletonCard from "@/libs/SkeletonCard";
+import FollowBar from "@/components/FollowBar";
+import { useAppContext } from "@/context";
 
 const FollowingPageId = () => {
   const router = useRouter();
@@ -22,6 +24,8 @@ const FollowingPageId = () => {
   const [postmore, setPostMore] = useState<any>([]);
   const [userinfo, setuserinfo] = useState<any>({});
   const [loading, setLoading] = useState(false);
+  const { userData, setUserData, followStatus, setFollowStatus } =
+    useAppContext();
   console.log(params.followingpostId);
   const postId = Array.isArray(params.followingpostId)
     ? params.followingpostId[0]
@@ -30,9 +34,6 @@ const FollowingPageId = () => {
   const handleBack = useCallback(() => {
     router.back();
   }, [router]);
-
-  console.log(postmore);
-  console.log("sdjns");
 
   useEffect(() => {
     const func = async () => {
@@ -120,7 +121,13 @@ const FollowingPageId = () => {
           />
         </div>
 
-        <div className=" flex mx-24 ">
+        <FollowBar
+          UserData={userData}
+          followStatus={followStatus}
+          setFollowStatus={setFollowStatus}
+        />
+
+        <div className=" flex ">
           <Trending />
         </div>
       </div>

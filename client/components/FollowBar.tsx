@@ -1,10 +1,11 @@
 import { FollowingUser, GetAllUsers } from "@/actions/action";
+import { useAppContext } from "@/context";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
-  const [allUsers, setAllUsers] = useState<any[]>([]);
+  const { allUsers, setAllUsers } = useAppContext();
   console.log(UserData?.id);
 
   useEffect(() => {

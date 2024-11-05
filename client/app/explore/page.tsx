@@ -1,7 +1,9 @@
 "use client";
+import FollowBar from "@/components/FollowBar";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import Trending from "@/components/Trending";
+import { useAppContext } from "@/context";
 import { SidebarMenuItems } from "@/libs/sideitems";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,6 +13,8 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 
 const Explore = () => {
   const router = useRouter();
+  const { userData, setUserData, followStatus, setFollowStatus } =
+    useAppContext();
   return (
     <div>
       <div>
@@ -53,8 +57,13 @@ const Explore = () => {
               <p className="my-4 mx-2 text-2xl ">Post</p>
             </div>
           </div>
+          <FollowBar
+            UserData={userData}
+            followStatus={followStatus}
+            setFollowStatus={setFollowStatus}
+          />
 
-          <div className=" flex mx-48 -mt-56 sm:mx-24 sm:mt-6">
+          <div className=" flex ">
             <Trending />
           </div>
         </div>

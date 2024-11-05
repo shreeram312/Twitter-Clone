@@ -9,8 +9,6 @@ const page = () => {
   } else {
     if (!userId) {
       redirect("/Intro");
-    } else {
-      redirect("/userdetails");
     }
   }
 };
