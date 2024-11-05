@@ -40,7 +40,7 @@ const Profile = () => {
       }
     };
     fetchUser();
-  }, [followStatus]);
+  }, []);
 
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">

@@ -8,11 +8,13 @@ import { FaRegHeart } from "react-icons/fa";
 import { ToggleLikePost } from "@/actions/action";
 
 import ReplyBoxFollowing from "./ReplyBoxFollowing";
+import SkeletonCard from "@/libs/SkeletonCard";
 
-const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
+const PostMoreInfoFollowing = ({ postmore, userinfo, loadingdo }: any) => {
   const [commentlist, setcommentlist] = useState<any[]>([]);
   const [isliked, setisliked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<any>(0);
+  const [loading, setLoading] = useState(false);
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
     "en-IN",
@@ -32,8 +34,10 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
     setLikeCount(postmore?.likedIds?.length || 0);
   }, [postmore]);
 
-  const handleLike = async (postId: string, userId: string) => {
+  const handleLike = async (e: any, postId: string, userId: string) => {
     try {
+      e.stopPropagation();
+      setLoading(true);
       const res = await ToggleLikePost(postId, userId);
       console.log(res);
 
@@ -48,30 +52,35 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
       console.error("Error toggling like:", error);
     }
   };
-  console.log("dklkd;");
-  console.log(userinfo);
 
   return (
-    <div className="max-w-xl mx-auto p-4 border-b border-gray-700 text-white space-y-4">
-      <div className="flex items-start justify-between">
-        <div className="flex space-x-4 items-center">
-          <Image
-            src={postmore?.user?.profileImage}
-            height={50}
-            width={50}
-            alt="Profile"
-            className="w-12 h-12 rounded-full"
-          />
-          <div>
-            <p className="font-bold text-base">{postmore?.user?.name}</p>
-            <p className="text-sm text-gray-400">@{postmore?.user?.userName}</p>
+    <div className="max-w-xl mx-auto p-2 border-b border-gray-700 text-white space-y-4">
+      {loadingdo ? (
+        <SkeletonCard />
+      ) : (
+        <div className="flex items-start justify-between">
+          <div className="flex space-x-4 items-center">
+            <Image
+              src={postmore?.user?.profileImage}
+              height={50}
+              width={50}
+              alt="Profile"
+              className="w-12 h-12 rounded-full"
+            />
+            <div>
+              <p className="font-bold text-base">{postmore?.user?.name}</p>
+              <p className="text-sm text-gray-400">
+                @{postmore?.user?.userName}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="whitespace-pre-wrap break-words text-lg mx-4 text-gray-200 leading-relaxed">
         <p>{postmore?.bodyContent}</p>
       </div>
+
       {postmore?.postImage && (
         <div onClick={() => {}} className=" mx-6">
           <Image
@@ -98,7 +107,7 @@ const PostMoreInfoFollowing = ({ postmore, userinfo }: any) => {
 
         <div
           className="flex items-center space-x-1 cursor-pointer hover:text-blue-500 my-4"
-          onClick={() => handleLike(postmore?.id, userinfo.id)}
+          onClick={(e) => handleLike(e, postmore?.id, userinfo.id)}
         >
           {isliked ? <FcLike size={24} /> : <FaRegHeart size={24} />}
           <span>{likeCount}</span>

@@ -1,6 +1,6 @@
 const SkeletonCard = () => {
   return (
-    <div className="grid grid-cols-12 border-b border-gray-700  animate-pulse transition duration-200 ease-in-out p-6">
+    <div className="grid grid-cols-12 border-b border-gray-700  animate-pulse transition duration-200 ease-in-out p-3">
       <div className="col-span-2 sm:col-span-1">
         <div className="rounded-full bg-gray-700 h-12 w-12"></div>
       </div>

@@ -15,7 +15,8 @@ const FollowingInteractionCard = ({ followingposts, userId }) => {
     setisliked(followingposts?.likedIds?.includes(userId));
   }, [followingposts, userId]);
 
-  const handleLike = async (postId: any, userId: any) => {
+  const handleLike = async (postId: any, userId: any, e: any) => {
+    e.stopPropagation();
     try {
       const res = await ToggleLikePost(postId, userId);
       console.log(res);
@@ -49,11 +50,13 @@ const FollowingInteractionCard = ({ followingposts, userId }) => {
         </div>
 
         <div
-          onClick={() => handleLike(followingposts?.id, userId)}
+          onClick={(e) => handleLike(followingposts?.id, userId, e)}
           className="flex items-center space-x-2"
         >
           {isliked ? (
-            <FcLike size={24} className="cursor-pointer" />
+            <div>
+              <FcLike size={24} className="cursor-pointer" />
+            </div>
           ) : (
             <AiOutlineHeart size={24} className="cursor-pointer" />
           )}

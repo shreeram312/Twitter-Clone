@@ -38,17 +38,21 @@ const MainSection: React.FC<MainSectionProps> = ({
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const token = await getToken();
-      setLoading(true);
-      const postres = await axios.get("/api/user/post", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        const token = await getToken();
+        setLoading(true);
+        const postres = await axios.get("/api/user/post", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      setpostdata(postres.data);
-
-      setLoading(false);
+        setpostdata(postres.data);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchPosts();

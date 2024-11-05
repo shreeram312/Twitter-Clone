@@ -13,7 +13,6 @@ const PostMoreInfo = ({ postmore }: any) => {
   const [likeCount, setLikeCount] = useState<number>(
     postmore?.likedIds?.length
   );
-  console.log(postmore);
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
     "en-IN",

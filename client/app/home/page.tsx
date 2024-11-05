@@ -71,7 +71,7 @@ function Dashboard() {
       console.log(e);
     }
     //  eslint-disable-next-line
-  }, []);
+  }, [followStatus]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4  ">
@@ -130,10 +130,12 @@ function Dashboard() {
             setLoading={setLoading}
           />
         ) : (
-          <FollowingSection
-            followingposts={followingposts}
-            userId={userData?.id}
-          />
+          <div>
+            <FollowingSection
+              followingposts={followingposts}
+              userId={userData?.id}
+            />
+          </div>
         )}
       </div>
 
@@ -159,13 +161,14 @@ function Dashboard() {
 const FollowingSection = ({ followingposts, userId }) => {
   return (
     <div>
-      {followingposts.map((data: any) => (
-        <FollowingFeedCard
-          key={data?.id}
-          followingposts={data}
-          userId={userId}
-        />
-      ))}
+      {followingposts.length > 0 &&
+        followingposts.map((data: any) => (
+          <FollowingFeedCard
+            key={data?.id}
+            followingposts={data}
+            userId={userId}
+          />
+        ))}
     </div>
   );
 };

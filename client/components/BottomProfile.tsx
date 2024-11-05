@@ -40,7 +40,7 @@ const BottomProfile = ({ UserInfo }: any) => {
         </div>
       </div>
 
-      {Array.isArray(posts) && posts.length > 0 ? (
+      {Array.isArray(posts) && posts?.length > 0 ? (
         posts.map((data: any) => (
           <div
             className="cursor-pointer"
@@ -52,6 +52,10 @@ const BottomProfile = ({ UserInfo }: any) => {
             <PostCard data={data} />
           </div>
         ))
+      ) : posts?.length <= 0 ? (
+        <div className="text-center p-2">
+          <p>No posts found Yet</p>
+        </div>
       ) : (
         <div className="flex items-center justify-center my-2">
           <Spinner />

@@ -10,7 +10,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   useEffect(() => {
     const fetchUsers = async () => {
       const cachedUsers = localStorage.getItem("alluser");
-
+      localStorage.removeItem("alluser");
       if (!cachedUsers) {
         const res = await GetAllUsers(UserData?.id);
         localStorage.setItem("alluser", JSON.stringify(res));
@@ -42,7 +42,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
     };
 
     fetchUsers();
-  }, [UserData?.id]);
+  }, [UserData?.followingIds]);
 
   useEffect(() => {
     localStorage.setItem("followStatus", JSON.stringify(followStatus));
@@ -72,7 +72,6 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
       localStorage.setItem("followStatus", JSON.stringify(newFollowStatus));
     }
 
-    // localStorage.removeItem("alluser");
     //
     setAllUsers((prevUsers: any) =>
       prevUsers.map((user: any) => ({

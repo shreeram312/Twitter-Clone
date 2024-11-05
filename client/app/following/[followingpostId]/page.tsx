@@ -12,7 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import PostMoreInfoFollowing from "./_components/PostMoreInfoFollowing";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-import FollowBar from "@/components/FollowBar";
+import SkeletonCard from "@/libs/SkeletonCard";
 
 const FollowingPageId = () => {
   const router = useRouter();
@@ -21,6 +21,7 @@ const FollowingPageId = () => {
 
   const [postmore, setPostMore] = useState<any>([]);
   const [userinfo, setuserinfo] = useState<any>({});
+  const [loading, setLoading] = useState(false);
   console.log(params.followingpostId);
   const postId = Array.isArray(params.followingpostId)
     ? params.followingpostId[0]
@@ -35,15 +36,21 @@ const FollowingPageId = () => {
 
   useEffect(() => {
     const func = async () => {
-      const token = getToken();
-      console.log(token, "edl");
-      const res1 = await axios.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      try {
+        const token = getToken();
+        console.log(token, "edl");
+        const res1 = await axios.get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-      setuserinfo(res1.data);
+        setuserinfo(res1.data);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     };
     func();
   }, []);
@@ -51,12 +58,15 @@ const FollowingPageId = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const res = await FetchParticularPost(postId);
         console.log(res);
         console.log("jdfnkld");
         setPostMore(res);
       } catch (error) {
         console.error("Error fetching post:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -102,7 +112,12 @@ const FollowingPageId = () => {
 
             <p className="my-4 mx-2 text-2xl ">Post</p>
           </div>
-          <PostMoreInfoFollowing postmore={postmore} userinfo={userinfo} />
+
+          <PostMoreInfoFollowing
+            postmore={postmore}
+            loadingdo={loading}
+            userinfo={userinfo}
+          />
         </div>
 
         <div className=" flex mx-24 ">

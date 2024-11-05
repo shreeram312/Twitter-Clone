@@ -187,8 +187,6 @@ export async function GetAllUsers(id: string) {
     },
   });
 
-  console.log("Users fetched, excluding the current user:", filtered);
-
   return filtered;
 }
 export async function FollowingUser(fromUserId: string, toUserId: string) {
