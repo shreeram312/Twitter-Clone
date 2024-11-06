@@ -152,7 +152,9 @@ function Dashboard() {
         setFollowStatus={setFollowStatus}
       />
       {/* )} */}
-      <Trending />
+      <div className=" flex ">
+        <Trending />
+      </div>
     </div>
   );
 }

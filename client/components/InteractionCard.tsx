@@ -48,14 +48,14 @@ const InteractionCard = ({
 
   return (
     <div>
-      <div className="flex justify-between sm:space-x-24 mt-2 w-full sm:w-[50%]">
+      <div className="flex justify-between space-x-7  mt-2 w-full sm:gap-10 sm:mx-2 -mx-10 gap-3  sm:w-[50%]">
         <div className="flex items-center space-x-2">
           <BiMessageRounded size={24} />
-          <span className="hidden sm:block text-lg">{comments}</span>
+          <span className=" sm:block text-lg">{comments}</span>
         </div>
         <div className="flex items-center space-x-2" onClick={handleRetweet}>
           <FaRetweet size={24} />
-          <span className="hidden sm:block text-lg">5</span>
+          <span className="sm:block text-lg">5</span>
         </div>
         <div
           className="flex items-center space-x-2"
@@ -66,7 +66,7 @@ const InteractionCard = ({
           ) : (
             <AiOutlineHeart size={24} className="cursor-pointer" />
           )}
-          <span className="hidden sm:block text-lg">{likeCount}</span>
+          <span className=" sm:block text-lg">{likeCount}</span>
         </div>
         <div
           className="flex items-center space-x-2"

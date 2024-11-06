@@ -90,7 +90,7 @@ const MainSection: React.FC<MainSectionProps> = ({
 
   return (
     <div>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center mx-auto">
         {showBackArrow && (
           <IoMdArrowRoundBack
             onClick={handleback}

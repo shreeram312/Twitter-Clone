@@ -42,7 +42,7 @@ const FeedCard = ({
     >
       <div className="col-span-2 sm:col-span-1">
         <Image
-          className="rounded-full"
+          className="rounded-full "
           src={postdata.user.profileImage}
           alt="userimage"
           width={50}
@@ -50,7 +50,7 @@ const FeedCard = ({
         />
       </div>
 
-      <div className="col-span-10 sm:col-span-11 mx-2">
+      <div className="col-span-10 sm:col-span-11 mx-2 my-2">
         <h5 className="font-bold text-cyan-200 text-sm">
           {postdata.user.userName}
 
@@ -61,12 +61,12 @@ const FeedCard = ({
           />
         </h5>
 
-        <p className="text-sm sm:text-base break-words overflow-hidden">
+        <p className="text-lg sm:text-base break-words overflow-hidden py-3 font-medium  ">
           {postdata.bodyContent}
         </p>
         {postImage && (
           <Image
-            className="p-2"
+            className="-mx-6 sm:mx-2"
             src={postImage}
             height={450}
             width={450}

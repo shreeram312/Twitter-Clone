@@ -88,7 +88,9 @@ const Profile = () => {
       />
       {/* )} */}
 
-      <Trending />
+      <div className=" flex ">
+        <Trending />
+      </div>
     </div>
   );
 };
