@@ -1,11 +1,13 @@
 import { FollowingUser, GetAllUsers } from "@/actions/action";
 import { useAppContext } from "@/context";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   const { allUsers, setAllUsers } = useAppContext();
+  const router = useRouter();
   console.log(UserData?.id);
 
   useEffect(() => {
@@ -103,6 +105,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
               >
                 <div className="flex items-center space-x-4">
                   <Image
+                    onClick={() => router.push(`/profile/${user?.id}`)}
                     height={200}
                     width={200}
                     src={user?.profileImage}

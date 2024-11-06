@@ -1,5 +1,6 @@
 "use server";
 import client from "@/libs/prismadb";
+
 export default async function FetchPosts(id: string | "") {
   if (!id) {
     return null;
@@ -282,4 +283,22 @@ export async function DeletePost(userId: string, postId: string) {
     },
   });
   return postdelete;
+}
+
+export async function FetchParticularUser(userId) {
+  if (!userId) {
+    return;
+  }
+
+  const user = await client.user.findFirst({
+    where: {
+      id: userId,
+    },
+
+    include: {
+      posts: true,
+    },
+  });
+
+  return user;
 }
