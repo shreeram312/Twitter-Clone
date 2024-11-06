@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import CommentCardFollowing from "./CommentCardFollowing";
-import { userInfo } from "os";
 
 const ReplyBoxFollowing = ({
   postmore,

@@ -59,8 +59,6 @@ const MainSection: React.FC<MainSectionProps> = ({
     //  eslint-disable-next-line
   }, []);
 
-  console.log(postdata);
-  console.log("hjj");
   useEffect(() => {
     const fetchUser = async () => {
       const token = await getToken();
@@ -80,7 +78,7 @@ const MainSection: React.FC<MainSectionProps> = ({
     };
     fetchUser();
     //  eslint-disable-next-line
-  }, []);
+  }, [postdata]);
 
   const addPost = (newPost: any) => {
     setpostdata((prevPosts) => [newPost, ...prevPosts]);

@@ -70,7 +70,7 @@ function Dashboard() {
       console.log(e);
     }
     //  eslint-disable-next-line
-  }, [followStatus]);
+  }, [followStatus, userData.id]);
   return (
     <div className="grid grid-cols-12 h-screen w-auto px-4 md:px-52">
       <div className="col-span-2 py-4  ">
