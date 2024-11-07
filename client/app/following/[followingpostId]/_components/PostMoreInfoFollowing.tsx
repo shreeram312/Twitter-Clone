@@ -9,12 +9,14 @@ import { ToggleLikePost } from "@/actions/action";
 
 import ReplyBoxFollowing from "./ReplyBoxFollowing";
 import SkeletonCard from "@/libs/SkeletonCard";
+import { useAppContext } from "@/context";
 
-const PostMoreInfoFollowing = ({ postmore, userinfo, loadingdo }: any) => {
+const PostMoreInfoFollowing = ({ loadingdo, userinfo }: any) => {
   const [commentlist, setcommentlist] = useState<any[]>([]);
   const [isliked, setisliked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<any>(0);
   const [loading, setLoading] = useState(false);
+  const { postmore } = useAppContext();
 
   const formattedDate = new Date(postmore?.createdAt).toLocaleDateString(
     "en-IN",

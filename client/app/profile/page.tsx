@@ -80,6 +80,7 @@ const Profile = () => {
           <SkeletonFollowBar />
         </div>
       ) : ( */}
+
       <FollowBar
         UserData={userData}
         followStatus={followStatus}

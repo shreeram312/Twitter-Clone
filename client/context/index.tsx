@@ -9,6 +9,9 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
   const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const [postmore, setPostMore] = useState<any>([]);
+  const [userinfo, setuserinfo] = useState<any>({});
+  const [loadingmain, setLoadingmain] = useState<boolean>(false);
   return (
     <AppContext.Provider
       value={{
@@ -18,6 +21,12 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
         setUserData,
         followStatus,
         setFollowStatus,
+        postmore,
+        setPostMore,
+        userinfo,
+        setuserinfo,
+        loadingmain,
+        setLoadingmain,
       }}
     >
       {children}

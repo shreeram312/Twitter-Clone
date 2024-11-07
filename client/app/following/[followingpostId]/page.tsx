@@ -21,11 +21,17 @@ const FollowingPageId = () => {
   const params = useParams();
   const { getToken } = useAuth();
 
-  const [postmore, setPostMore] = useState<any>([]);
   const [userinfo, setuserinfo] = useState<any>({});
   const [loading, setLoading] = useState(false);
-  const { userData, setUserData, followStatus, setFollowStatus } =
-    useAppContext();
+  const {
+    userData,
+    postmore,
+    setPostMore,
+    followStatus,
+    setFollowStatus,
+    setLoadingmain,
+    loadingmain,
+  } = useAppContext();
   console.log(params.followingpostId);
   const postId = Array.isArray(params.followingpostId)
     ? params.followingpostId[0]
@@ -40,6 +46,7 @@ const FollowingPageId = () => {
       try {
         const token = getToken();
         console.log(token, "edl");
+        setLoading(true);
         const res1 = await axios.get("/api/user", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -59,15 +66,14 @@ const FollowingPageId = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        setLoading(true);
+        setLoadingmain(true);
         const res = await FetchParticularPost(postId);
-        console.log(res);
-        console.log("jdfnkld");
+
         setPostMore(res);
       } catch (error) {
         console.error("Error fetching post:", error);
       } finally {
-        setLoading(false);
+        setLoadingmain(false);
       }
     };
 
@@ -114,11 +120,11 @@ const FollowingPageId = () => {
             <p className="my-4 mx-2 text-2xl ">Post</p>
           </div>
 
-          <PostMoreInfoFollowing
-            postmore={postmore}
-            loadingdo={loading}
-            userinfo={userinfo}
-          />
+          {loadingmain ? (
+            <SkeletonCard />
+          ) : (
+            <PostMoreInfoFollowing loadingdo={loading} userinfo={userinfo} />
+          )}
         </div>
 
         <FollowBar

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import Spinner from "./Spinner";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const BottomProfile = ({ UserInfo }: any) => {
   const [posts, setPosts] = useState<any>([]);
   const router = useRouter();
+  const pathname = usePathname();
   console.log(UserInfo);
 
   useEffect(() => {
@@ -45,7 +46,11 @@ const BottomProfile = ({ UserInfo }: any) => {
           <div
             className="cursor-pointer"
             onClick={() => {
-              router.push(`/home/${data.id}`);
+              if (pathname == `/profile`) {
+                router.push(`/home/${data?.id}`);
+              } else {
+                router.push(`/following/${data?.id}`);
+              }
             }}
             key={data.id}
           >
