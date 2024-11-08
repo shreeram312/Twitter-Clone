@@ -9,6 +9,9 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
   const { allUsers, setAllUsers } = useAppContext();
   const router = useRouter();
   console.log(UserData?.id);
+  function handleClick(user) {
+    router.push(`/profile/${user?.id}`);
+  }
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -105,7 +108,7 @@ const FollowBar = ({ UserData, followStatus, setFollowStatus }: any) => {
               >
                 <div className="flex items-center space-x-4">
                   <Image
-                    onClick={() => router.push(`/profile/${user?.id}`)}
+                    onClick={() => handleClick(user)}
                     height={200}
                     width={200}
                     src={user?.profileImage}

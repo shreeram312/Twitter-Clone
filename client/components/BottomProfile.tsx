@@ -57,7 +57,7 @@ const BottomProfile = ({ UserInfo }: any) => {
             <PostCard data={data} />
           </div>
         ))
-      ) : posts?.length <= 0 ? (
+      ) : posts?.length == 0 ? (
         <div className="text-center p-2">
           <p>No posts found Yet</p>
         </div>

@@ -102,7 +102,7 @@ const FollowingUserProfile = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <h1 className="text-2xl font-bold"></h1>
-                    <p className="text-gray-400">@</p>
+                    <p className="text-gray-400">@{currentuser?.userName}</p>
                   </div>
                   <button className="bg-transparent border border-gray-500 px-3 py-1 rounded-full text-sm hover:bg-gray-800">
                     Edit Profile
@@ -114,11 +114,17 @@ const FollowingUserProfile = () => {
 
                 <div className="mt-4 flex space-x-6">
                   <div className="flex items-center">
-                    <span className="font-bold"></span>
-                    <span className="text-gray-400 ml-1">Following</span>
+                    <span className="font-bold">
+                      {" "}
+                      {currentuser?.followingIds?.length}
+                    </span>
+                    <span className="text-gray-400 ml-1"> Following</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="font-bold"></span>
+                    <span className="font-bold">
+                      {" "}
+                      {currentuser?.followersIds?.length}
+                    </span>
                     <span className="text-gray-400 ml-1">Followers</span>
                   </div>
                 </div>
