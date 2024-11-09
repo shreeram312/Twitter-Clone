@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "components/Cards/index.tss",
     "app/home/[profileId]",
-    "app/following/[followingpostId]"
+    "app/following/[followingpostId]",
+    "server.js"
   ],
   "exclude": ["node_modules"]
 }

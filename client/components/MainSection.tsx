@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import FeedCard from "./FeedCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -12,10 +12,10 @@ import SkeletonCard from "@/libs/SkeletonCard";
 interface MainSectionProps {
   label?: string;
   showBackArrow?: boolean;
-  setuserData: any;
+  setuserData: (data: any) => void;
   userData: any;
-  loading: any;
-  setLoading: any;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 const MainSection: React.FC<MainSectionProps> = ({
@@ -27,64 +27,59 @@ const MainSection: React.FC<MainSectionProps> = ({
   label,
 }) => {
   const router = useRouter();
-
   const [postdata, setpostdata] = useState<any[]>([]);
   const { getToken } = useAuth();
 
   const handleback = useCallback(() => {
     router.back();
-    //  eslint-disable-next-line
   }, [router]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const token = await getToken();
-        setLoading(true);
-        const postres = await axios.get("/api/user/post", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setpostdata(postres.data);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-    //  eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    const fetchUser = async () => {
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    try {
       const token = await getToken();
-      setLoading(true);
+      const postres = await axios.get("/api/user/post", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setpostdata(postres.data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  }, [getToken, setLoading]);
+
+  const fetchUser = useCallback(async () => {
+    setLoading(true);
+    try {
+      const token = await getToken();
       if (token) {
         localStorage.setItem("token", token);
       }
-
       const res = await axios.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       setuserData(res.data);
-
+    } catch (e) {
+      console.error(e);
+    } finally {
       setLoading(false);
-    };
-    fetchUser();
-    //  eslint-disable-next-line
-  }, [postdata]);
+    }
+  }, [getToken, setuserData, setLoading]);
+
+  useEffect(() => {
+    if (!userData) fetchUser();
+  }, [fetchUser, userData]);
+
+  useEffect(() => {
+    if (!postdata.length) fetchPosts();
+  }, [fetchPosts, postdata]);
 
   const addPost = (newPost: any) => {
     setpostdata((prevPosts) => [newPost, ...prevPosts]);
   };
 
-  const handleDeletePost = (postId) => {
+  const handleDeletePost = (postId: string) => {
     setpostdata((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   };
 
@@ -95,11 +90,10 @@ const MainSection: React.FC<MainSectionProps> = ({
           <IoMdArrowRoundBack
             onClick={handleback}
             color="white"
-            className=" cursor-pointer hover:opacity-70"
+            className="cursor-pointer hover:opacity-70"
             size={40}
           />
         )}
-
         <h1 className="text-xl ">{label}</h1>
       </div>
       <PostBox
@@ -107,24 +101,21 @@ const MainSection: React.FC<MainSectionProps> = ({
         addPost={addPost}
         imageUrl={userData?.profileImage}
       />
-
-      <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap ">
+      <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap">
         {Array.isArray(postdata) &&
-          postdata.map((post: any) => {
-            return (
-              <FeedCard
-                key={post.id}
-                postdata={post}
-                comments={post?.comments?.length}
-                likes={post?.likedIds?.length}
-                likedIds={post?.likedIds}
-                postId={post?.id}
-                userId={post?.userId}
-                postImage={post?.postImage}
-                onDelete={handleDeletePost}
-              />
-            );
-          })}
+          postdata.map((post: any) => (
+            <FeedCard
+              key={post.id}
+              postdata={post}
+              comments={post?.comments?.length}
+              likes={post?.likedIds?.length}
+              likedIds={post?.likedIds}
+              postId={post?.id}
+              userId={post?.userId}
+              postImage={post?.postImage}
+              onDelete={handleDeletePost}
+            />
+          ))}
         {loading && (
           <div>
             <SkeletonCard />
@@ -137,4 +128,5 @@ const MainSection: React.FC<MainSectionProps> = ({
     </div>
   );
 };
+
 export default MainSection;
