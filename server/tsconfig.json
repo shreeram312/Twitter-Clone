@@ -8,7 +8,8 @@
     "outDir": "./dist", // Output the compiled files in the 'dist' folder
     "rootDir": "./src", // Your TypeScript source files will be in the 'src' folder
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": ["node"]
   },
   "include": [
     "src/**/*.ts" // Include TypeScript files in the 'src' folder
