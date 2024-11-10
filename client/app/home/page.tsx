@@ -25,6 +25,7 @@ function Dashboard() {
 
   const { userData, setUserData, followStatus, setFollowStatus } =
     useAppContext();
+  console.log(process.env.NEXT_PUBLIC_SERVER_API);
 
   useEffect(() => {
     const fetchUser = async () => {
