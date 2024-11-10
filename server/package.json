@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/websocket.ts",
-    "build": "tsc",
+    "build": "tsc -b",
     "start": "node dist/websocket.js"
   },
   "keywords": [],
