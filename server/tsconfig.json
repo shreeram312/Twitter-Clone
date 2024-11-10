@@ -5,13 +5,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist", // Output the compiled files in the 'dist' folder
-    "rootDir": "./src", // Your TypeScript source files will be in the 'src' folder
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "noImplicitAny": false,
     "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts" // Include TypeScript files in the 'src' folder
-  ]
+  "include": ["src"]
 }
