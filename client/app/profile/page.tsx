@@ -10,14 +10,13 @@ import { BiHomeAlt } from "react-icons/bi";
 import Trending from "@/components/Trending";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
+import { useAppContext } from "@/context";
 
 const Profile = () => {
   const [userData, setUserData] = useState<any>(null);
   const { getToken } = useAuth();
   const [loading, setLoading] = useState<boolean>(true);
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const { followStatus, setFollowStatus } = useAppContext();
 
   useEffect(() => {
     const fetchUser = async () => {

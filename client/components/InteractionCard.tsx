@@ -14,10 +14,10 @@ const InteractionCard = ({
 }: any) => {
   const [isliked, setisliked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
-
+  console.log(postdata.user.id);
   useEffect(() => {
-    setisliked(postdata.likedIds.includes(postdata.user.id));
-  }, [postdata.likedIds, postdata.user.id]);
+    setisliked(postdata?.posts?.likedIds?.includes(postdata.user.id));
+  }, [postdata?.posts?.likedIds, postdata.user.id]);
 
   const handleLike = async (
     e: React.MouseEvent,

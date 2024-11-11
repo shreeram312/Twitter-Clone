@@ -59,7 +59,7 @@ export default function ProfileSection() {
       }
     };
 
-    //This can be solution but it is polling  and i dont like that solution to solve this problem maybe Websoclet and sse can solve  🥲🥲
+    //This can be solution but it is polling  and i dont like that solution to solve this problem maybe Websocket and sse can solve  🥲🥲
     // const id = setInterval(() => fetchRes(), 2000);
     // return () => {
     //   clearInterval(id);

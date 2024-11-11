@@ -16,14 +16,13 @@ import { useRouter } from "next/navigation";
 import PostMoreInfo from "../_components/PostMoreInfo";
 
 import Trending from "@/components/Trending";
+import { useAppContext } from "@/context";
 
 const PostIdSlug = () => {
   const params = useParams();
   const router = useRouter();
   const [postmore, setPostMore] = useState<any>();
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const { followStatus, setFollowStatus } = useAppContext();
   const postId = Array.isArray(params.profileId)
     ? params.profileId[0]
     : params.profileId;

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import InteractionCard from "./InteractionCard";
+import FollowingInteractionCard from "./FollowingInteractionCard";
 
 const PostCard = ({ data }: any) => {
   const formattedDate = new Date(data.createdAt).toLocaleDateString("en-IN", {
@@ -47,12 +48,9 @@ const PostCard = ({ data }: any) => {
         )}
 
         <div className="mx-6">
-          <InteractionCard
-            postdata={data}
-            comments={data.comments?.length}
-            likes={data?.likedIds?.length}
+          <FollowingInteractionCard
+            followingposts={data}
             userId={data?.userId}
-            postId={data?.id}
           />
         </div>
       </div>

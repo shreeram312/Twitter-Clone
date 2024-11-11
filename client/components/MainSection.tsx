@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import FeedCard from "./FeedCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -28,6 +28,7 @@ const MainSection: React.FC<MainSectionProps> = ({
 }) => {
   const router = useRouter();
   const [postdata, setpostdata] = useState<any[]>([]);
+  const [hasFetchedPosts, setHasFetchedPosts] = useState(false);
   const { getToken } = useAuth();
 
   const handleback = useCallback(() => {
@@ -42,6 +43,7 @@ const MainSection: React.FC<MainSectionProps> = ({
         headers: { Authorization: `Bearer ${token}` },
       });
       setpostdata(postres.data);
+      setHasFetchedPosts(true); // Prevents multiple fetches
     } catch (e) {
       console.error(e);
     } finally {
@@ -65,15 +67,15 @@ const MainSection: React.FC<MainSectionProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [getToken, setuserData, setLoading]);
+  }, [getToken, setLoading, setuserData]);
 
   useEffect(() => {
     if (!userData) fetchUser();
   }, [fetchUser, userData]);
 
   useEffect(() => {
-    if (!postdata.length) fetchPosts();
-  }, [fetchPosts, postdata]);
+    if (!hasFetchedPosts && !loading) fetchPosts();
+  }, [fetchPosts, hasFetchedPosts, loading]);
 
   const addPost = (newPost: any) => {
     setpostdata((prevPosts) => [newPost, ...prevPosts]);
@@ -102,7 +104,9 @@ const MainSection: React.FC<MainSectionProps> = ({
         imageUrl={userData?.profileImage}
       />
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap">
-        {Array.isArray(postdata) &&
+        {loading ? (
+          <SkeletonCard />
+        ) : Array.isArray(postdata) && postdata.length > 0 ? (
           postdata.map((post: any) => (
             <FeedCard
               key={post.id}
@@ -115,14 +119,9 @@ const MainSection: React.FC<MainSectionProps> = ({
               postImage={post?.postImage}
               onDelete={handleDeletePost}
             />
-          ))}
-        {loading && (
-          <div>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
+          ))
+        ) : (
+          <div className="text-center"> No posts Yet</div>
         )}
       </div>
     </div>
