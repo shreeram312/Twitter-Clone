@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { useAuth, useUser } from "@clerk/nextjs";
 import toast from "react-hot-toast";

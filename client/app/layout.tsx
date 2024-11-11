@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "By-Shreeram",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -34,18 +34,20 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${geistSans.variable} ${quicksand.variable}`}>
           {/* Flex container for alignment */}
-          <div className="flex justify-end ">
-            {/* SignedIn and SignedOut buttons on the right */}
-            {/* <SignedOut>
+
+          {/* SignedIn and SignedOut buttons on the right */}
+          {/* <SignedOut>
               <SignInButton />
             </SignedOut> */}
-            <SignedIn>
-              <SignedOut />
-            </SignedIn>
-          </div>
-
-          {/* Main content */}
           <AppWrapper>
+            <div className="flex justify-end ">
+              <SignedIn>
+                <SignedOut />
+              </SignedIn>
+            </div>
+
+            {/* Main content */}
+
             <main>{children}</main>
           </AppWrapper>
 

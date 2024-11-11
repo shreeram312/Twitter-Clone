@@ -3,7 +3,7 @@ import InteractionCard from "./InteractionCard";
 import FollowingInteractionCard from "./FollowingInteractionCard";
 
 const PostCard = ({ data }: any) => {
-  const formattedDate = new Date(data.createdAt).toLocaleDateString("en-IN", {
+  const formattedDate = new Date(data?.createdAt).toLocaleDateString("en-IN", {
     day: "numeric",
     month: "long",
   });
@@ -12,10 +12,10 @@ const PostCard = ({ data }: any) => {
     <div className="overflow-hidden break-words">
       <div className="mt-6 p-4 border border-gray-700 rounded-lg ">
         <div className="mt-2 flex items-center ">
-          {data.user.profileImage ? (
+          {data?.user?.profileImage ? (
             <div>
               <Image
-                src={data.user.profileImage}
+                src={data?.user?.profileImage}
                 width={40}
                 height={40}
                 alt="profile image"
@@ -29,17 +29,17 @@ const PostCard = ({ data }: any) => {
           )}
 
           <div className="ml-2">
-            <span className="font-bold text-lg">{data.user.name}</span>
+            <span className="font-bold text-lg">{data?.user?.name}</span>
             <span className="text-gray-400">
-              @{data.user.userName} · {formattedDate}{" "}
+              @{data?.user?.userName} · {formattedDate}{" "}
             </span>
           </div>
         </div>
-        <p className=" mx-10 text-justify">{data.bodyContent}</p>
-        {data.postImage && (
+        <p className=" mx-10 text-justify">{data?.bodyContent}</p>
+        {data?.postImage && (
           <div className="mx-6 p-2">
             <Image
-              src={data.postImage}
+              src={data?.postImage}
               height={450}
               width={450}
               alt="noimage"

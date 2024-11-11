@@ -81,8 +81,9 @@ function Dashboard() {
           <SideBarItem
             title="Logout"
             onClick={() => {
+              alert("dfj");
+              router.push("/");
               localStorage.clear();
-              router.push("/Intro");
             }}
             icon={<BiHomeAlt />}
           />

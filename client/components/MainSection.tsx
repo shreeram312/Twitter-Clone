@@ -105,7 +105,11 @@ const MainSection: React.FC<MainSectionProps> = ({
       />
       <div className="border border-r-0 border-l-0 border-gray-700 transition-all h-auto cursor-pointer text-wrap">
         {loading ? (
-          <SkeletonCard />
+          <div>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         ) : Array.isArray(postdata) && postdata.length > 0 ? (
           postdata.map((post: any) => (
             <FeedCard

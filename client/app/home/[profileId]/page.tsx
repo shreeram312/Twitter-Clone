@@ -82,7 +82,13 @@ const PostIdSlug = () => {
           </button>
           <p className="my-4 mx-2 text-2xl ">Post</p>
         </div>
-        {postmore ? <PostMoreInfo postmore={postmore} /> : <Spinner />}
+        {postmore ? (
+          <PostMoreInfo postmore={postmore} />
+        ) : (
+          <div className="flex justify-center">
+            <Spinner />
+          </div>
+        )}
       </div>
 
       <FollowBar
