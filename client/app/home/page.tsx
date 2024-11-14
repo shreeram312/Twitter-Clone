@@ -6,13 +6,14 @@ import MainSection from "@/components/MainSection";
 import SideBarItem from "@/components/SideBarItem";
 import SidebarTweetButton from "@/components/SidebarTweetButton";
 import FollowBar from "@/components/FollowBar";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { SidebarMenuItems } from "@/libs/sideitems";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Trending from "@/components/Trending";
 import FollowingFeedCard from "@/components/FollowingFeedCard";
 import { useAppContext } from "@/context";
+import toast from "react-hot-toast";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("forYou");
@@ -25,6 +26,7 @@ function Dashboard() {
   >([]);
   const { userData, setUserData, followStatus, setFollowStatus } =
     useAppContext();
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,6 +40,8 @@ function Dashboard() {
         });
         setUserData(res.data);
       } catch (error) {
+        toast.error("Not Authenticated");
+        router.push("/userdetails");
         console.error("Error fetching user data:", error);
       } finally {
         setLoading(false);
@@ -49,12 +53,15 @@ function Dashboard() {
   useEffect(() => {
     const followingpost = async () => {
       const token = await getToken();
+
       try {
         const res = await axios.get("/api/user/post/following", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setfollowingposts(res.data);
       } catch (e) {
+        toast.error("Authenticated But No details Filled");
+        router.push("/userdetails");
         console.log(e);
       }
     };
@@ -127,11 +134,15 @@ function Dashboard() {
           />
         )}
       </div>
-      <FollowBar
-        UserData={userData}
-        followStatus={followStatus}
-        setFollowStatus={setFollowStatus}
-      />
+
+      <div>
+        <FollowBar
+          UserData={userData}
+          followStatus={followStatus}
+          setFollowStatus={setFollowStatus}
+        />
+      </div>
+
       <div className="flex">
         <Trending />
       </div>

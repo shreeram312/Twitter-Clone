@@ -27,7 +27,7 @@ const ProfileDetails = () => {
       localStorage.setItem("token", token);
       if (user?.emailAddresses[0]?.emailAddress !== email) {
         console.error("Email does not match the authenticated user's email");
-        alert("Email does not match the authenticated user's email");
+        toast.error("Email does not match the authenticated user's email");
         return;
       }
 
@@ -47,6 +47,14 @@ const ProfileDetails = () => {
       console.log(e);
     }
   };
+
+  function handleCheck() {
+    if (user) {
+      router.push("/home");
+    } else {
+      toast.error("Not Filled Details Fill them First");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
@@ -122,6 +130,12 @@ const ProfileDetails = () => {
               Save Profile
             </button>
           </form>
+          <button
+            onClick={handleCheck}
+            className="w-full my-2 bg-yellow-300 text-black font-semibold py-3 rounded-md hover:bg-blue-300 transition"
+          >
+            Already Filled Details Continue
+          </button>
         </div>
       </div>
     </div>

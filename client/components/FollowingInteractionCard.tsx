@@ -6,27 +6,28 @@ import { FaRetweet } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 
 const FollowingInteractionCard = ({ followingposts, userId }) => {
+  console.log(userId);
+  console.log("sdhdbjnadjadkjabdadbamd jadbhajdbhdb");
   // Local state for each post
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    const likedIds = followingposts?.likedIds || [];
-    setIsLiked(likedIds.includes(userId));
-
-    setLikeCount(likedIds.length);
+    const likedIds = followingposts?.likedIds || []; // Fallback to an empty array if `likedIds` is undefined
+    setIsLiked(likedIds.includes(userId)); // Check if `userId` is in `likedIds` and set `isLiked` accordingly
+    setLikeCount(likedIds.length); // Update the like count
   }, [followingposts, userId]);
 
   const handleLike = async (postId, userId, e) => {
     e.stopPropagation();
     try {
-      await ToggleLikePost(postId, userId);
+      await ToggleLikePost(postId, userId); // Call API to toggle like status
 
       setIsLiked((prevLiked) => {
-        setLikeCount((prevCount) =>
-          prevLiked ? prevCount - 1 : prevCount + 1
+        setLikeCount(
+          (prevCount) => (prevLiked ? prevCount - 1 : prevCount + 1) // Adjust the like count
         );
-        return !prevLiked;
+        return !prevLiked; // Toggle `isLiked` state
       });
     } catch (error) {
       console.error("Error toggling like:", error);

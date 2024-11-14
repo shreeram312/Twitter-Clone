@@ -1,5 +1,7 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AppContext = createContext<any>([]);
 
@@ -10,9 +12,24 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
     {}
   );
 
+  const { getToken } = useAuth();
+
   const [postmore, setPostMore] = useState<any>([]);
   const [userinfo, setuserinfo] = useState<any>({});
   const [loadingmain, setLoadingmain] = useState<boolean>(false);
+
+  const [currentuser, setcurrentuser] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const token = await getToken();
+      const res = await axios.get("/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setcurrentuser(res.data);
+    };
+    fetchdata();
+  }, []);
 
   return (
     <AppContext.Provider
@@ -29,6 +46,7 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
         setuserinfo,
         loadingmain,
         setLoadingmain,
+        currentuser,
       }}
     >
       {children}

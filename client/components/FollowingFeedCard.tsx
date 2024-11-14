@@ -2,9 +2,13 @@ import React, { useCallback } from "react";
 import Image from "next/image";
 import FollowingInteractionCard from "./FollowingInteractionCard";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/context";
 
 const FollowingFeedCard = ({ followingposts, userId }) => {
   const router = useRouter();
+
+  const { currentuser } = useAppContext();
+  console.log(currentuser?.id);
 
   const handleroute = useCallback(() => {
     router.push(`/following/${followingposts?.id}`);

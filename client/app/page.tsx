@@ -48,7 +48,7 @@ export default function Intro() {
             {/* Sign In Button */}
             <SignInButton
               // This will redirect after successful sign-in
-              forceRedirectUrl={userId ? "/home" : "/userdetails"}
+              forceRedirectUrl={"/userdetails"}
             >
               <button className="w-full bg-blue-400 text-black font-bold py-3 rounded-full hover:bg-blue-500 transition duration-200">
                 Get Started

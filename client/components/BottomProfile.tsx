@@ -10,7 +10,6 @@ const BottomProfile = ({ UserInfo }: any) => {
   const [posts, setPosts] = useState<any>([]);
   const router = useRouter();
   const pathname = usePathname();
-  console.log(UserInfo);
 
   useEffect(() => {
     const getBottomPosts = async () => {

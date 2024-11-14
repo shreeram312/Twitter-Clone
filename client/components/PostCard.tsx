@@ -1,6 +1,7 @@
 import Image from "next/image";
 import InteractionCard from "./InteractionCard";
 import FollowingInteractionCard from "./FollowingInteractionCard";
+import { useAppContext } from "@/context";
 
 const PostCard = ({ data }: any) => {
   const formattedDate = new Date(data?.createdAt).toLocaleDateString("en-IN", {
@@ -8,6 +9,9 @@ const PostCard = ({ data }: any) => {
     month: "long",
   });
 
+  const { currentuser } = useAppContext();
+  console.log(currentuser?.id);
+  console.log("wjdh");
   return (
     <div className="overflow-hidden break-words">
       <div className="mt-6 p-4 border border-gray-700 rounded-lg ">
@@ -50,7 +54,7 @@ const PostCard = ({ data }: any) => {
         <div className="mx-6">
           <FollowingInteractionCard
             followingposts={data}
-            userId={data?.userId}
+            userId={currentuser?.id}
           />
         </div>
       </div>

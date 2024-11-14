@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+} from "@clerk/nextjs";
 import { AppWrapper } from "../context/index";
 
 import { Toaster } from "react-hot-toast";
@@ -36,9 +41,9 @@ export default async function RootLayout({
           {/* Flex container for alignment */}
 
           {/* SignedIn and SignedOut buttons on the right */}
-          {/* <SignedOut>
-              <SignInButton />
-            </SignedOut> */}
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
           <AppWrapper>
             <div className="flex justify-end ">
               <SignedIn>
