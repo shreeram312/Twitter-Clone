@@ -31,10 +31,10 @@ export default function Intro() {
           <h1 className="text-6xl font-bold mb-4 leading-tight">
             Join the conversation
           </h1>
-          <p className="text-xl max-w-lg mx-auto opacity-90">
+          <div className="text-xl max-w-lg mx-auto opacity-90">
             Discover what’s happening in the world in real-time. Be part of the
             global conversation.
-          </p>
+          </div>
         </div>
       </div>
 

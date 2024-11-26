@@ -21,6 +21,7 @@ const ProfileDetails = () => {
     e.preventDefault();
     try {
       const token = await getToken();
+
       if (!token) {
         return toast.error("Please login to update your profile");
       }
@@ -45,6 +46,16 @@ const ProfileDetails = () => {
       router.push("/home");
     } catch (e) {
       console.log(e);
+      if (axios.isAxiosError(e) && e.response) {
+        toast.error(e.response.data.error);
+        await Promise.resolve(
+          setTimeout(() => {
+            toast.error("Continue to dashboard by clicking on Below Button");
+          }, 4000)
+        );
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 
@@ -52,7 +63,7 @@ const ProfileDetails = () => {
     if (user) {
       router.push("/home");
     } else {
-      toast.error("Not Filled Details Fill them First");
+      toast.error("Not Signed Up or Incomplete Details ");
     }
   }
 

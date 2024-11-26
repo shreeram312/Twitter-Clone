@@ -41,16 +41,8 @@ export default async function RootLayout({
           {/* Flex container for alignment */}
 
           {/* SignedIn and SignedOut buttons on the right */}
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <AppWrapper>
-            <div className="flex justify-end ">
-              <SignedIn>
-                <SignedOut />
-              </SignedIn>
-            </div>
 
+          <AppWrapper>
             {/* Main content */}
 
             <main>{children}</main>

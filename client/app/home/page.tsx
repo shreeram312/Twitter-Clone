@@ -8,7 +8,7 @@ import SidebarTweetButton from "@/components/SidebarTweetButton";
 import FollowBar from "@/components/FollowBar";
 import { redirect, useRouter } from "next/navigation";
 import { SidebarMenuItems } from "@/libs/sideitems";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Trending from "@/components/Trending";
 import FollowingFeedCard from "@/components/FollowingFeedCard";
@@ -135,7 +135,7 @@ function Dashboard() {
         )}
       </div>
 
-      <div>
+      <div className="flex">
         <FollowBar
           UserData={userData}
           followStatus={followStatus}

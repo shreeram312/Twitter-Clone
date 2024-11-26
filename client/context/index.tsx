@@ -23,10 +23,12 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchdata = async () => {
       const token = await getToken();
-      const res = await axios.get("/api/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setcurrentuser(res.data);
+      if (token) {
+        const res = await axios.get("/api/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setcurrentuser(res.data);
+      }
     };
     fetchdata();
   }, []);
