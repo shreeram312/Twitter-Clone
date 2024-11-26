@@ -302,3 +302,49 @@ export async function FetchParticularUser(userId) {
 
   return user;
 }
+
+export async function countHashtags() {
+  // Fetch all posts and comments from the database
+  const posts = await client.post.findMany({
+    select: {
+      bodyContent: true,
+    },
+  });
+
+  const comments = await client.comment.findMany({
+    select: {
+      body: true,
+    },
+  });
+
+  // Extract hashtags from posts and comments
+  const postHashtags = posts.flatMap(
+    (post) => post.bodyContent.match(/#\w+/g) || []
+  );
+  const commentHashtags = comments.flatMap(
+    (comment) => comment.body.match(/#\w+/g) || []
+  );
+
+  // Combine hashtags from both posts and comments
+  const allHashtags = [...postHashtags, ...commentHashtags];
+
+  // Count total hashtags
+  const hashtagCount = allHashtags.length;
+  console.log(`Total hashtags: ${hashtagCount}`);
+
+  // Count occurrences of each hashtag
+  const hashtagOccurrences: Record<string, number> = {};
+
+  allHashtags.forEach((hashtag) => {
+    hashtagOccurrences[hashtag] = (hashtagOccurrences[hashtag] || 0) + 1;
+  });
+
+  // Sort hashtags by their occurrences in descending order
+  const sortedHashtags = Object.entries(hashtagOccurrences)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .map(([hashtag, count]) => ({ hashtag, count }));
+
+  console.log("Sorted Hashtag occurrences:", sortedHashtags);
+
+  return sortedHashtags;
+}

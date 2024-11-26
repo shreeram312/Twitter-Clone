@@ -1,88 +1,88 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+  // This is your Prisma schema file,
+  // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+  // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+  // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// This is your Prisma schema file for PostgreSQL
+  // This is your Prisma schema file for PostgreSQL
 
-generator client {
-  provider = "prisma-client-js"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+  }
 
-model User {
-  id              String    @id @default(uuid()) // Use UUID for PostgreSQL
-  userAuthId      String    @unique
-  name            String?
-  userName        String     @unique
-  bio             String?
-  email           String?   @unique
-  emailVerified   DateTime?
-  coverImage      String?
-  profileImage    String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  followingIds    String[] 
-  hasNotification Boolean?
-  followersIds    String[]
-
-
-  
-  messagesSent    Message[] @relation("SentMessages")
-  messagesReceived Message[] @relation("ReceivedMessages")
+  model User {
+    id              String    @id @default(uuid()) // Use UUID for PostgreSQL
+    userAuthId      String    @unique
+    name            String?
+    userName        String     @unique
+    bio             String?
+    email           String?   @unique
+    emailVerified   DateTime?
+    coverImage      String?
+    profileImage    String?
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+    followingIds    String[] 
+    hasNotification Boolean?
+    followersIds    String[]
 
 
-  posts           Post[]
-  comments        Comment[]
-  notifications   Notification[]   
-
-}
+    
+    messagesSent    Message[] @relation("SentMessages")
+    messagesReceived Message[] @relation("ReceivedMessages")
 
 
+    posts           Post[]
+    comments        Comment[]
+    notifications   Notification[]   
 
-model Message {
-  id          String   @id @default(uuid()) // UUID for PostgreSQL
-  content     String
-  senderId    String
-  receiverId  String
-  createdAt   DateTime @default(now())
+  }
 
-  sender      User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
-}
-model Post {
-  id        String     @id @default(uuid()) // UUID for PostgreSQL
-  bodyContent  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  userId    String   
-  likedIds  String[]   
-  postImage String? 
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  comments  Comment[]
-}
 
-model Comment {
-  id        String   @id @default(uuid()) // UUID for PostgreSQL
-  body      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  postId    String
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-}
+  model Message {
+    id          String   @id @default(uuid()) // UUID for PostgreSQL
+    content     String
+    senderId    String
+    receiverId  String
+    createdAt   DateTime @default(now())
 
-model Notification {
-  id        String   @id @default(uuid()) // UUID for PostgreSQL
-  body      String
-  userId    String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+    sender      User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+    receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  }
+  model Post {
+    id        String     @id @default(uuid()) // UUID for PostgreSQL
+    bodyContent  String
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    userId    String   
+    likedIds  String[]   
+    postImage String? 
+    user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    comments  Comment[]
+  }
+
+  model Comment {
+    id        String   @id @default(uuid()) // UUID for PostgreSQL
+    body      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    userId    String
+    postId    String
+
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  }
+
+  model Notification {
+    id        String   @id @default(uuid()) // UUID for PostgreSQL
+    body      String
+    userId    String
+    createdAt DateTime @default(now())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  }

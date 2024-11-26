@@ -1,10 +1,27 @@
+import { countHashtags } from "@/actions/action";
+import { useAppContext } from "@/context";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Trending = () => {
+  const { temp, setTemp } = useAppContext();
+
+  useEffect(() => {
+    // Function to delay the API call
+    const trend = async () => {
+      // Simulate a delay (e.g., 2 seconds)
+      setTimeout(async () => {
+        const trendPost = await countHashtags();
+        console.log(trendPost);
+        setTemp(trendPost);
+      }, 2000); // Delay of 2 seconds
+    };
+    trend();
+  }, []);
+
   return (
-    <div className="hidden sm:flex ">
-      <div className="bg-black w-80 p-4  -mx-24 h-fit mt-64 rounded-lg outline outline-offset-1 outline-1 outline-gray-600">
+    <div className="hidden sm:flex">
+      <div className="bg-black w-80 p-4 -mx-24 h-fit mt-64 rounded-lg outline outline-offset-1 outline-1 outline-gray-600">
         <h2 className="font-bold text-lg mb-4">What's happening</h2>
 
         <div className="flex space-x-4 mb-4">
@@ -22,43 +39,19 @@ const Trending = () => {
         </div>
 
         <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-gray-400 text-sm">Trending in India</p>
-              <p className="font-bold">#Arrest_Richa_Rajput</p>
-              <p className="text-sm text-gray-400">4,498 posts</p>
+          {/* Render each trending hashtag one by one */}
+          {temp.slice(0, 5).map((trend, index) => (
+            <div key={index} className="flex justify-between items-center mb-4">
+              <div>
+                <p className="text-gray-400 text-sm">
+                  {index === 0 ? "Trending in India" : "Trending"}
+                </p>
+                <p className="font-bold">{trend.hashtag}</p>
+                <p className="text-sm text-gray-400">{trend.count} posts</p>
+              </div>
+              <div className="text-gray-400">•••</div>
             </div>
-            <div className="text-gray-400">•••</div>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-gray-400 text-sm">Entertainment • Trending</p>
-              <p className="font-bold">#BishnoiGang</p>
-              <p className="text-sm text-gray-400">10.3K posts</p>
-            </div>
-            <div className="text-gray-400">•••</div>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-gray-400 text-sm">Entertainment • Trending</p>
-              <p className="font-bold">#IndVSNZ</p>
-              <p className="text-sm text-gray-400">
-                Trending with <span className="text-blue-500">#ViratKohli</span>
-              </p>
-            </div>
-            <div className="text-gray-400">•••</div>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-gray-400 text-sm">Sports • Trending</p>
-              <p className="font-bold">CLUELESS CAPTAIN ROHIT</p>
-              <p className="text-sm text-gray-400">15.1K posts</p>
-            </div>
-            <div className="text-gray-400">•••</div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,8 +1,6 @@
 import React, { useState, useRef } from "react";
-
 import { BsCardImage } from "react-icons/bs";
 import { IoMdGift } from "react-icons/io";
-
 import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -12,7 +10,6 @@ import { ImCross } from "react-icons/im";
 interface PostBoxProps {
   userId: string;
   addPost: (newPost: any) => void; // eslint-disable-line @typescript-eslint/no-unused-vars
-
   imageUrl: string;
 }
 
@@ -20,8 +17,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
   const [postContent, setPostContent] = useState("");
   const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const [postImage, setpostImage] = useState<string>("");
+  const [postImage, setPostImage] = useState<string>("");
 
   const handlePost = async () => {
     setLoading(true);
@@ -32,7 +28,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
         postImage: postImage,
       });
       addPost(res.data);
-      setpostImage("");
+      setPostImage("");
       toast.success("Post added successfully");
       setPostContent("");
       if (textareaRef.current) {
@@ -54,7 +50,7 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
   };
 
   return (
-    <div className="w-full  bg-black text-white p-4 rounded-lg shadow-md border border-gray-700">
+    <div className="w-full bg-black text-white p-4 rounded-lg shadow-md border border-gray-700">
       <div className="flex items-start">
         {imageUrl ? (
           <Image
@@ -82,10 +78,9 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
                 alt="Post-image"
                 className="object-cover rounded-md"
               />
-
               <ImCross
                 className="absolute top-2 right-2 h-6 w-6 bg-white rounded-full text-red-700 cursor-pointer"
-                onClick={() => setpostImage("")}
+                onClick={() => setPostImage("")}
               />
             </div>
           )}
@@ -95,7 +90,6 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
             onChange={(e) => {
               const value = e.target.value;
               setPostContent(value);
-
               handleResizeTextarea();
             }}
             placeholder="What is happening?!"
@@ -108,23 +102,22 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
             }`}
             rows={2}
           />
-
           <div className="flex justify-between items-center mt-2">
             <div className="flex space-x-4 text-blue-400">
               <CldUploadWidget
                 onSuccess={(results: any) => {
                   console.log(results);
-                  setpostImage(results?.info?.url);
+                  setPostImage(results?.info?.url);
                 }}
                 uploadPreset="shree-image"
               >
                 {({ open }) => (
                   <button
-                    className="  bg-black rounded-md "
+                    className="bg-black rounded-md"
                     onClick={() => open()}
                   >
                     <BsCardImage
-                      className="cursor-pointer  hover:text-blue-300 transition"
+                      className="cursor-pointer hover:text-blue-300 transition"
                       size={20}
                     />
                   </button>
@@ -134,23 +127,6 @@ const PostBox: React.FC<PostBoxProps> = ({ userId, addPost, imageUrl }) => {
                 className="cursor-pointer hover:text-blue-300 transition"
                 size={20}
               />
-              {/* <AiOutlineBars
-                className="cursor-pointer hover:text-blue-300 transition"
-                size={20}
-              />
-              <FaSmile
-                onClick={() => {}}
-                className="cursor-pointer hover:text-blue-300 transition"
-                size={20}
-              />
-              <BsCalendarEvent
-                className="cursor-pointer hover:text-blue-300 transition"
-                size={20}
-              />
-              <FaMapMarkerAlt
-                className="cursor-pointer hover:text-blue-300 transition"
-                size={20}
-              /> */}
             </div>
 
             <button

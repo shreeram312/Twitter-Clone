@@ -19,6 +19,7 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
   const [loadingmain, setLoadingmain] = useState<boolean>(false);
 
   const [currentuser, setcurrentuser] = useState<any[]>([]);
+  const [temp, setTemp] = useState<{ hashtag: string; count: number }[]>([]);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -49,6 +50,8 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
         loadingmain,
         setLoadingmain,
         currentuser,
+        temp,
+        setTemp,
       }}
     >
       {children}

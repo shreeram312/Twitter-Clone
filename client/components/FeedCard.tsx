@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InteractionCard from "./InteractionCard";
-import { MdDelete } from "react-icons/md";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import { DeletePost } from "@/actions/action";
 import toast from "react-hot-toast";
@@ -32,9 +31,30 @@ const FeedCard = ({
     console.log(res);
     if (res) {
       onDelete(postId);
-      toast.success("Post Deleted Succesfully");
+      toast.success("Post Deleted Successfully");
     }
   }
+
+  const renderContentWithHashtags = (text: string) => {
+    const regex = /#\w+/g; // Match words starting with #
+    const parts = text.split(regex); // Split the text by hashtags
+    const hashtags = text.match(regex); // Get the hashtags themselves
+
+    if (!hashtags) return text;
+
+    return parts.map((part, index) => {
+      if (hashtags[index]) {
+        return (
+          <span key={index}>
+            <span className="text-blue-500">{hashtags[index]}</span>
+            {part}
+          </span>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   return (
     <div
       onClick={() => handleChangeRoute(postdata?.id)}
@@ -42,7 +62,7 @@ const FeedCard = ({
     >
       <div className="col-span-2 sm:col-span-1">
         <Image
-          className="rounded-full "
+          className="rounded-full"
           src={postdata.user.profileImage}
           alt="userimage"
           width={50}
@@ -61,8 +81,8 @@ const FeedCard = ({
           />
         </h5>
 
-        <p className="text-lg sm:text-base break-words overflow-hidden py-3 font-medium  ">
-          {postdata.bodyContent}
+        <p className="text-lg sm:text-base break-words overflow-hidden py-3 font-medium">
+          {renderContentWithHashtags(postdata.bodyContent)}
         </p>
         {postImage && (
           <Image

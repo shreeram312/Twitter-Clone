@@ -6,7 +6,6 @@ import { useAppContext } from "@/context";
 
 const FollowingFeedCard = ({ followingposts, userId }) => {
   const router = useRouter();
-
   const { currentuser } = useAppContext();
   console.log(currentuser?.id);
 
@@ -28,14 +27,27 @@ const FollowingFeedCard = ({ followingposts, userId }) => {
 
       <div
         onClick={handleroute}
-        className="col-span-10 sm:col-span-11 -my-2 cursor-pointer "
+        className="col-span-10 sm:col-span-11 -my-2 cursor-pointer"
       >
         <h5 className="font-bold text-cyan-200 text-sm p-3 cursor-pointer">
           {followingposts.user.userName}
         </h5>
+
+        {/* Render the post content and highlight hashtags in the same cyan color */}
         <p className="text-sm sm:text-base mx-2 -my-2 py-3 break-words overflow-hidden h-16">
-          {followingposts.bodyContent}
+          {followingposts.bodyContent.split(" ").map((word, index) => {
+            // If the word starts with a hashtag, apply cyan color
+            if (word.startsWith("#")) {
+              return (
+                <span key={index} className="text-blue-500">
+                  {word}{" "}
+                </span>
+              );
+            }
+            return `${word} `;
+          })}
         </p>
+
         {followingposts.postImage && (
           <div>
             <Image
