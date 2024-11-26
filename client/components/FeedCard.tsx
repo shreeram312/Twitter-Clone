@@ -36,21 +36,20 @@ const FeedCard = ({
   }
 
   const renderContentWithHashtags = (text: string) => {
-    const regex = /#\w+/g; // Match words starting with #
-    const parts = text.split(regex); // Split the text by hashtags
-    const hashtags = text.match(regex); // Get the hashtags themselves
+    const regex = /(#\w+)/g; // Match words starting with #
 
-    if (!hashtags) return text;
-
-    return parts.map((part, index) => {
-      if (hashtags[index]) {
+    // Replace hashtags in the text with a span that has the blue color styling
+    return text.split(regex).map((part, index) => {
+      // If the part matches the regex (i.e., it's a hashtag), style it
+      if (part.match(regex)) {
         return (
-          <span key={index}>
-            <span className="text-blue-500">{hashtags[index]}</span>
+          <span key={index} className="text-blue-500">
             {part}
           </span>
         );
       }
+
+      // Otherwise, return the part as normal text
       return <span key={index}>{part}</span>;
     });
   };

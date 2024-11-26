@@ -28,13 +28,13 @@ const Trending = () => {
           <Image
             height={200}
             width={200}
-            src="https://via.placeholder.com/50"
+            src="https://fedica.com/blog/wp-content/uploads/2013/02/hashtag.jpg"
             alt="Event Image"
             className="w-12 h-12 rounded-lg"
           />
           <div>
-            <p className="font-bold">The Offseason</p>
-            <p className="text-sm text-gray-400">Event • LIVE</p>
+            <p className="font-bold">Trending </p>
+            <p className="text-sm text-gray-400">Tweets</p>
           </div>
         </div>
 
